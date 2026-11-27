@@ -2,7 +2,7 @@
 
 ## Project identity
 
-This repository is for Round 4, **The Final Boss**, of the four-round LUMINA project. The canonical shared product context is [LUMINA `docs/PROJECT_CONTEXT.md`](https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md). The existing Round 4 prototype is in the main LUMINA repository. The reuse or extraction plan is still unresolved; do not start implementation in this repository until that path and the task scope are approved.
+This repository is for Round 4, **The Final Boss**, of the four-round LUMINA project. The canonical shared product context is [LUMINA `docs/PROJECT_CONTEXT.md`](https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md). The existing Round 4 prototype in the main LUMINA repository is reference-only; do not edit that earlier-round repository. The first playable version here is a pre-wired Diya chaser with pin configuration only: D2→LED 1, D3→LED 2, D4→LED 3, D5→LED 4. A valid setup runs D2→D3→D4→D5 repeatedly. The first playable implementation is merged; new work still requires a scoped GitHub issue and user-approved initial assignment.
 
 ## Selected agent tools and roles
 

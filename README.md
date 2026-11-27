@@ -4,9 +4,9 @@ This repository is for the **fourth round/game** of the larger four-round LUMINA
 
 ## Project status
 
-Planning and repository setup are underway. Round 4 is **The Final Boss**, a free-build virtual breadboard circuit challenge. The current target in the shared project context is a four-LED sequential Diya chaser using an Arduino-style microcontroller module. The existing prototype checks a simplified connection graph and animates a simulated result; it is not an electrical solver or physical-hardware connection. See the canonical [LUMINA project context](https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md).
+The first playable version of Round 4 is merged to `main`: a pre-wired four-LED Diya chaser. Players configure each fixed LED path to its matching pin (D2→LED 1, D3→LED 2, D4→LED 3, D5→LED 4); a valid configuration starts the repeating sequence. The board uses four distinct 220 Ω resistor/LED paths to shared GND. Validation is a simplified configuration/connectivity check, not electrical simulation or a hardware connection. Scoring, timers, hints, accounts, saved results, and backend work are deferred. See the canonical [LUMINA project context](https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md) for shared context; its Round 4 prototype remains reference-only.
 
-This repository's relationship to the existing LUMINA prototype is not yet decided. Before implementation is planned here, compare the existing Round 4 prototype and get the intended reuse/extraction approach approved. See [issues #4–#6](https://github.com/Samarthpoojary/Lumina-final-round/issues) for the read-only audit and next planning decisions.
+This repository is the standalone home for Round 4. Do not edit the earlier-round repository as part of Round 4 work. Any selected prototype material may be ported through reviewed pull requests. See [the approved first-milestone rules](https://github.com/Samarthpoojary/Lumina-final-round/issues/7) and [the backlog](https://github.com/Samarthpoojary/Lumina-final-round/issues/6).
 
 ## Working here
 
