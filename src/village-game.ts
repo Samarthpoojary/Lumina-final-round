@@ -1,3 +1,9 @@
+import { createImageAsset } from './engine/assets';
+import { followCamera } from './engine/camera';
+import { canOccupyTile } from './engine/collision';
+import { movementDeltaForKey } from './engine/input';
+import { TILE_SIZE as TILE, VIEW_TILES, WORLD_BOUNDS } from './engine/world';
+
 type Material = 'petals' | 'wicks' | 'glowDust';
 
 interface Pickup {
@@ -7,11 +13,10 @@ interface Pickup {
   collected: boolean;
 }
 
-const TILE = 24;
-const MAP_WIDTH = 84;
-const MAP_HEIGHT = 64;
-const VIEW_WIDTH_TILES = 28;
-const VIEW_HEIGHT_TILES = 16;
+const MAP_WIDTH = WORLD_BOUNDS.widthTiles;
+const MAP_HEIGHT = WORLD_BOUNDS.heightTiles;
+const VIEW_WIDTH_TILES = VIEW_TILES.width;
+const VIEW_HEIGHT_TILES = VIEW_TILES.height;
 const MOVE_DELAY = 125;
 const CRAFT_STATION = { x: 42, y: 32 };
 const BASES = [
@@ -83,10 +88,8 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
 
   const canvas = root.querySelector<HTMLCanvasElement>('.village-canvas');
   const ctx = canvas?.getContext('2d');
-  const tileAtlas = new Image();
-  tileAtlas.src = '/game-art/village-tiles.svg';
-  const heroSheet = new Image();
-  heroSheet.src = '/game-art/protagonist-sprite.svg';
+  const tileAtlas = createImageAsset('/game-art/village-tiles.svg');
+  const heroSheet = createImageAsset('/game-art/protagonist-sprite.svg');
   const minimap = root.querySelector<HTMLCanvasElement>('.minimap-canvas');
   const miniCtx = minimap?.getContext('2d');
   const prompt = root.querySelector<HTMLElement>('#world-prompt');
@@ -177,22 +180,14 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
   };
 
   const move = (key: string): void => {
-    const direction = key.toLowerCase();
-    let dx = 0;
-    let dy = 0;
-    if (direction === 'arrowleft' || direction === 'a') dx = -1;
-    if (direction === 'arrowright' || direction === 'd') dx = 1;
-    if (direction === 'arrowup' || direction === 'w') dy = -1;
-    if (direction === 'arrowdown' || direction === 's') dy = 1;
-    if (!dx && !dy) return;
-    const nx = player.x + dx;
-    const ny = player.y + dy;
-    if (nx < 1 || nx > MAP_WIDTH - 2 || ny < 1 || ny > MAP_HEIGHT - 2) return;
-    if (HOUSES.some((house) => nx >= house.x && nx < house.x + house.w && ny >= house.y && ny < house.y + house.h)) return;
-    player.x = nx;
-    player.y = ny;
-    player.facing = dx < 0 ? -1 : dx > 0 ? 1 : player.facing;
-    player.direction = dy < 0 ? 3 : dy > 0 ? 0 : dx < 0 ? 2 : 1;
+    const delta = movementDeltaForKey(key);
+    if (!delta) return;
+    const next = { x: player.x + delta.x, y: player.y + delta.y };
+    if (!canOccupyTile(next, WORLD_BOUNDS, HOUSES, 1)) return;
+    player.x = next.x;
+    player.y = next.y;
+    player.facing = delta.x < 0 ? -1 : delta.x > 0 ? 1 : player.facing;
+    player.direction = delta.y < 0 ? 3 : delta.y > 0 ? 0 : delta.x < 0 ? 2 : 1;
     player.step += 1;
     collectAtPlayer();
   };
@@ -259,8 +254,9 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
 
   const drawScene = (): void => {
     if (!ctx || !canvas) return;
-    cameraX = Math.max(0, Math.min(MAP_WIDTH*TILE-canvas.width, player.x*TILE+TILE/2-canvas.width/2));
-    cameraY = Math.max(0, Math.min(MAP_HEIGHT*TILE-canvas.height, player.y*TILE+TILE/2-canvas.height/2));
+    const camera = followCamera(player, { width: canvas.width, height: canvas.height }, WORLD_BOUNDS, TILE);
+    cameraX = camera.x;
+    cameraY = camera.y;
     drawGround(ctx);
     // Floating material pickups.
     pickups.filter((pickup) => !pickup.collected).forEach((pickup) => {
@@ -343,7 +339,7 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
   root.querySelector<HTMLButtonElement>('.circuit-link')?.addEventListener('click', openCircuit);
   root.addEventListener('keydown', (event) => {
     if (event.key.toLowerCase() === 'e') { event.preventDefault(); interact(); return; }
-    if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'w', 'a', 's', 'd', 'W', 'A', 'S', 'D'].includes(event.key)) {
+    if (movementDeltaForKey(event.key)) {
       event.preventDefault();
       held.add(event.key);
     }
