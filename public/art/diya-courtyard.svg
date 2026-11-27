@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" fill="none" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="dusk" cx="50%" cy="43%" r="72%">
+      <stop offset="0" stop-color="#323049" stop-opacity="0" />
+      <stop offset="0.62" stop-color="#302c43" stop-opacity="0.12" />
+      <stop offset="1" stop-color="#171922" stop-opacity="0.5" />
+    </radialGradient>
+    <radialGradient id="lampGlow">
+      <stop stop-color="#ffc86d" stop-opacity="0.42" />
+      <stop offset="1" stop-color="#ffc86d" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="archStroke" x1="115" y1="60" x2="1485" y2="840" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a998e8" />
+      <stop offset="0.48" stop-color="#e6b87c" />
+      <stop offset="1" stop-color="#78bfa7" />
+    </linearGradient>
+    <linearGradient id="rangoliStroke" x1="0" y1="-90" x2="0" y2="90" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#b5a2ff" />
+      <stop offset="0.52" stop-color="#f1bf75" />
+      <stop offset="1" stop-color="#6bc4a4" />
+    </linearGradient>
+    <linearGradient id="flame" x1="0" y1="-30" x2="0" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff2a3" />
+      <stop offset="0.55" stop-color="#ffc86d" />
+      <stop offset="1" stop-color="#e28a63" />
+    </linearGradient>
+    <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+    <g id="rangoli">
+      <circle r="78" stroke="url(#rangoliStroke)" stroke-width="1.5" />
+      <circle r="61" stroke="#d5ba9a" stroke-opacity="0.48" stroke-width="1" />
+      <circle r="37" stroke="#b5a2ff" stroke-opacity="0.54" stroke-width="1" />
+      <g stroke="url(#rangoliStroke)" stroke-width="1.4">
+        <path d="M0-73C18-57 18-39 0-27C-18-39-18-57 0-73Z" />
+        <path d="M0-73C18-57 18-39 0-27C-18-39-18-57 0-73Z" transform="rotate(45)" />
+        <path d="M0-73C18-57 18-39 0-27C-18-39-18-57 0-73Z" transform="rotate(90)" />
+        <path d="M0-73C18-57 18-39 0-27C-18-39-18-57 0-73Z" transform="rotate(135)" />
+        <path d="M0-73C18-57 18-39 0-27C-18-39-18-57 0-73Z" transform="rotate(180)" />
+        <path d="M0-73C18-57 18-39 0-27C-18-39-18-57 0-73Z" transform="rotate(225)" />
+        <path d="M0-73C18-57 18-39 0-27C-18-39-18-57 0-73Z" transform="rotate(270)" />
+        <path d="M0-73C18-57 18-39 0-27C-18-39-18-57 0-73Z" transform="rotate(315)" />
+      </g>
+      <circle r="10" fill="#f0bd78" fill-opacity="0.7" />
+      <circle r="3" fill="#171922" />
+    </g>
+    <g id="diya">
+      <ellipse cy="3" rx="55" ry="15" fill="url(#lampGlow)" filter="url(#softGlow)" />
+      <path d="M-37 0C-30 17-17 27 0 28C17 27 30 17 37 0C23 8 12 11 0 11C-12 11-23 8-37 0Z" fill="#c99155" fill-opacity="0.55" stroke="#f0bd78" stroke-opacity="0.72" stroke-width="1.5" />
+      <path d="M-29 2C-18 10 18 10 29 2" stroke="#ffe2a0" stroke-opacity="0.65" stroke-width="1.2" />
+      <path d="M0 2C-12-13-6-29 0-36C7-26 12-13 0 2Z" fill="url(#flame)" fill-opacity="0.78" />
+      <path d="M0-1C-4-10-2-18 0-22C4-14 4-7 0-1Z" fill="#fff7d0" fill-opacity="0.8" />
+    </g>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#dusk)" />
+
+  <g stroke="url(#archStroke)" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M58 842V291C58 152 171 47 310 47H1290C1429 47 1542 152 1542 291V842" stroke-opacity="0.14" stroke-width="2" />
+    <path d="M82 842V293C82 167 184 72 310 72H1290C1416 72 1518 167 1518 293V842" stroke-opacity="0.09" stroke-width="1.5" />
+    <path d="M112 842V301C112 187 205 101 318 101H1282C1395 101 1488 187 1488 301V842" stroke-opacity="0.055" stroke-width="1" />
+    <path d="M58 842H300M1300 842H1542" stroke-opacity="0.15" stroke-width="2" />
+  </g>
+
+  <g fill="#f0c27d" fill-opacity="0.36">
+    <circle cx="142" cy="122" r="2" /><circle cx="177" cy="171" r="1.5" />
+    <circle cx="1458" cy="122" r="2" /><circle cx="1423" cy="171" r="1.5" />
+    <circle cx="268" cy="80" r="1.5" /><circle cx="1332" cy="80" r="1.5" />
+    <circle cx="800" cy="38" r="1.5" /><circle cx="838" cy="73" r="1" />
+  </g>
+
+  <g stroke="#e9c58b" stroke-opacity="0.17" stroke-width="1">
+    <path d="M130 65V100M158 88V119M1469 65V100M1441 88V119" />
+  </g>
+  <g fill="#f5c974" fill-opacity="0.72">
+    <circle cx="130" cy="103" r="3" /><circle cx="158" cy="122" r="2.5" />
+    <circle cx="1469" cy="103" r="3" /><circle cx="1441" cy="122" r="2.5" />
+  </g>
+
+  <use href="#rangoli" transform="translate(142 742) scale(0.88)" opacity="0.26" />
+  <use href="#rangoli" transform="translate(1458 742) scale(0.88)" opacity="0.26" />
+  <use href="#diya" transform="translate(290 816) scale(0.86)" opacity="0.58" />
+  <use href="#diya" transform="translate(1310 816) scale(0.86)" opacity="0.58" />
+
+  <path d="M430 854C540 836 642 832 800 832C958 832 1060 836 1170 854" stroke="#c5a5dc" stroke-opacity="0.08" stroke-width="1" />
+  <g fill="#d9b887" fill-opacity="0.24">
+    <circle cx="462" cy="852" r="2" /><circle cx="525" cy="843" r="1.5" />
+    <circle cx="1138" cy="852" r="2" /><circle cx="1075" cy="843" r="1.5" />
+  </g>
+</svg>

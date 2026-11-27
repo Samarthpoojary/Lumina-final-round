@@ -28,11 +28,13 @@ export function initShell(container: HTMLElement) {
 
   const button = pinConfiguration.element.querySelector<HTMLButtonElement>('#diya-sequence-toggle');
   const sequence = createDiyaSequence((pin, pathId) => {
+    pinConfiguration.setGuideState('sequence-active');
     board.querySelectorAll<SVGGElement>('.circuit-path').forEach((path) => {
       path.classList.toggle('is-active', path.dataset.ledPath === pathId);
     });
     pinConfiguration.setCurrentStep(`${pin} is active — ${pathId.replace('diya-', 'LED ')} is lit.`);
   }, () => {
+    pinConfiguration.setGuideState('idle');
     board.querySelectorAll('.circuit-path').forEach((path) => path.classList.remove('is-active'));
     pinConfiguration.setCurrentStep('');
     if (button) button.textContent = 'Validate & start sequence';
@@ -48,6 +50,7 @@ export function initShell(container: HTMLElement) {
     const assignments = pinConfiguration.getAssignments();
     const result = validatePinConfiguration(assignments);
     if (!result.valid) {
+      pinConfiguration.setGuideState('validation-error');
       pinConfiguration.setStatus(`Configuration needs changes: ${result.errors.join(' ')}`);
       return;
     }
@@ -60,6 +63,7 @@ export function initShell(container: HTMLElement) {
   pinConfiguration.onChange(() => {
     if (!sequence.isRunning()) return;
     sequence.stop();
+    pinConfiguration.setGuideState('selecting');
     pinConfiguration.setStatus('Configuration changed; sequence stopped. Validate and start again.');
   });
 

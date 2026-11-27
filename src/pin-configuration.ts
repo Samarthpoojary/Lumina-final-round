@@ -5,8 +5,11 @@ export interface PinConfigurationView {
   getAssignments: () => PinAssignment[];
   setStatus: (message: string) => void;
   setCurrentStep: (message: string) => void;
+  setGuideState: (state: GuideState) => void;
   onChange: (listener: () => void) => void;
 }
+
+export type GuideState = 'idle' | 'selecting' | 'validation-error' | 'sequence-active';
 
 const pinOptions: readonly DigitalPin[] = DIGITAL_PINS;
 const paths: Array<{ id: DiyaPathId; label: string }> = [
@@ -42,12 +45,16 @@ export function createPinConfiguration(): PinConfigurationView {
     </div>
     <button class="sequence-button" id="diya-sequence-toggle" type="button">Validate &amp; start sequence</button>
     <p class="pin-status" id="pin-config-status" role="status" aria-live="polite">Choose a pin for each of the four LED paths.</p>
-    <p class="sequence-current" id="sequence-current" aria-live="off"></p>
+    <div class="sequence-feedback">
+      <img class="diya-guide" id="diya-guide" src="/art/diya-guide-selecting.svg" alt="" aria-hidden="true" />
+      <p class="sequence-current" id="sequence-current" aria-live="off"></p>
+    </div>
   `;
 
   const selectors = Array.from(element.querySelectorAll<HTMLSelectElement>('select[data-path-id]'));
   const status = element.querySelector<HTMLElement>('#pin-config-status');
   const currentStep = element.querySelector<HTMLElement>('#sequence-current');
+  const guide = element.querySelector<HTMLImageElement>('#diya-guide');
   const changeListeners: Array<() => void> = [];
 
   const readAssignments = (): PinAssignment[] => selectors.map((selector) => ({
@@ -82,6 +89,7 @@ export function createPinConfiguration(): PinConfigurationView {
 
   selectors.forEach((selector) => selector.addEventListener('change', () => {
     update();
+    if (guide) guide.src = '/art/diya-guide-selecting.svg';
     changeListeners.forEach((listener) => listener());
   }));
 
@@ -93,6 +101,9 @@ export function createPinConfiguration(): PinConfigurationView {
     },
     setCurrentStep: (message) => {
       if (currentStep) currentStep.textContent = message;
+    },
+    setGuideState: (state) => {
+      if (guide) guide.src = `/art/diya-guide-${state}.svg`;
     },
     onChange: (listener) => changeListeners.push(listener),
   };
