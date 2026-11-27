@@ -1,0 +1,97 @@
+name: Discord notifications
+
+on:
+  issues:
+    types: [opened, reopened, assigned, labeled]
+  issue_comment:
+    types: [created]
+  pull_request:
+    types: [opened, reopened, ready_for_review, closed]
+  release:
+    types: [published]
+  workflow_run:
+    types: [completed]
+
+permissions: {}
+
+jobs:
+  notify:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'failure'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send a concise update to Discord
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_ACTION: ${{ github.event.action }}
+          EVENT_JSON: ${{ toJSON(github.event) }}
+          TASKS_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_TASKS }}
+          REPORTS_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_REPORTS }}
+          BLOCKERS_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_BLOCKERS }}
+          RELEASES_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_RELEASES }}
+        run: |
+          node <<'NODE'
+          const event = JSON.parse(process.env.EVENT_JSON);
+          const kind = process.env.EVENT_NAME;
+          const action = process.env.EVENT_ACTION || "updated";
+          let webhook;
+          let title;
+          let url;
+          let description;
+
+          if (kind === "issues") {
+            webhook = process.env.TASKS_WEBHOOK;
+            const issue = event.issue;
+            title = `Issue #${issue.number}: ${issue.title}`;
+            url = issue.html_url;
+            description = `Task ${action} by @${event.sender?.login || "unknown"}.`;
+          } else if (kind === "issue_comment") {
+            webhook = process.env.REPORTS_WEBHOOK;
+            const issue = event.issue;
+            title = `Update on #${issue.number}: ${issue.title}`;
+            url = issue.html_url;
+            description = `A GitHub comment was added by @${event.sender?.login || "unknown"}.`;
+          } else if (kind === "pull_request") {
+            webhook = process.env.REPORTS_WEBHOOK;
+            const pr = event.pull_request;
+            title = `PR #${pr.number}: ${pr.title}`;
+            url = pr.html_url;
+            description = `Pull request ${action} by @${event.sender?.login || "unknown"}.`;
+          } else if (kind === "release") {
+            webhook = process.env.RELEASES_WEBHOOK;
+            const release = event.release;
+            title = `Release: ${release.name || release.tag_name}`;
+            url = release.html_url;
+            description = `Published by @${event.sender?.login || "unknown"}.`;
+          } else if (kind === "workflow_run") {
+            webhook = process.env.BLOCKERS_WEBHOOK;
+            const run = event.workflow_run;
+            title = `Workflow failed: ${run.name}`;
+            url = run.html_url;
+            description = `GitHub Actions reported a failed run on ${run.head_branch || "an unknown branch"}.`;
+          } else {
+            process.exit(0);
+          }
+
+          if (!webhook) {
+            console.warn("Discord webhook secret is not configured for this notification type.");
+            process.exit(0);
+          }
+
+          const response = await fetch(webhook, {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify({
+              embeds: [{
+                title: title.slice(0, 256),
+                url,
+                description: description.slice(0, 4096),
+                footer: { text: "LUMINA Round 4 • GitHub" }
+              }],
+              allowed_mentions: { parse: [] }
+            })
+          });
+
+          if (!response.ok) {
+            throw new Error(`Discord webhook returned HTTP ${response.status}`);
+          }
+          NODE
