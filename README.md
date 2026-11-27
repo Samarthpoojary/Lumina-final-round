@@ -4,7 +4,7 @@ This repository is for the **fourth round/game** of the larger four-round LUMINA
 
 ## Project status
 
-Planning and repository setup are underway. Round 4 is **The Final Boss**, a free-build virtual breadboard circuit challenge. The current target in the shared project context is a four-LED sequential Diya chaser using an Arduino-style microcontroller module. The existing prototype checks a simplified connection graph and animates a simulated result; it is not an electrical solver or physical-hardware connection. See the canonical [LUMINA project context](`https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md`).
+Planning and repository setup are underway. Round 4 is **The Final Boss**, a free-build virtual breadboard circuit challenge. The current target in the shared project context is a four-LED sequential Diya chaser using an Arduino-style microcontroller module. The existing prototype checks a simplified connection graph and animates a simulated result; it is not an electrical solver or physical-hardware connection. See the canonical [LUMINA project context](https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md).
 
 This repository's relationship to the existing LUMINA prototype is not yet decided. Before implementation is planned here, compare the existing Round 4 prototype and get the intended reuse/extraction approach approved. See issue #3 for this planning work.
 
@@ -20,9 +20,10 @@ This repository's relationship to the existing LUMINA prototype is not yet decid
 ## Project documents
 
 - [Agent Coordination Architecture](docs/agent-coordination-architecture.md)
+- [Agent Quick Start](docs/agent-quickstart.md)
 - [Task template](docs/templates/task.md)
 - [Handover template](docs/templates/handover.md)
-- [Canonical shared LUMINA project context](`https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md`)
+- [Canonical shared LUMINA project context](https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md)
 
 ## Scope note
 
