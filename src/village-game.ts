@@ -8,10 +8,32 @@ interface Pickup {
 }
 
 const TILE = 24;
-const MAP_WIDTH = 28;
-const MAP_HEIGHT = 16;
+const MAP_WIDTH = 84;
+const MAP_HEIGHT = 64;
+const VIEW_WIDTH_TILES = 28;
+const VIEW_HEIGHT_TILES = 16;
 const MOVE_DELAY = 125;
-const CRAFT_STATION = { x: 14, y: 7 };
+const CRAFT_STATION = { x: 42, y: 32 };
+const BASES = [
+  { id: 'amber', x: 10, y: 10, color: '#b95b45' },
+  { id: 'sapphire', x: 74, y: 10, color: '#587fb6' },
+  { id: 'jade', x: 10, y: 54, color: '#588c65' },
+  { id: 'citrine', x: 74, y: 54, color: '#c69b48' },
+];
+const HOUSES = [
+  { x: 4, y: 4, w: 5, h: 4, roof: '#984f3f', wall: '#d49c64' },
+  { x: 13, y: 6, w: 4, h: 3, roof: '#8c5444', wall: '#d4a36c' },
+  { x: 4, y: 13, w: 4, h: 3, roof: '#8f5741', wall: '#d4a36c' },
+  { x: 68, y: 4, w: 5, h: 4, roof: '#536f8f', wall: '#d1a574' },
+  { x: 77, y: 6, w: 4, h: 3, roof: '#526d8f', wall: '#d9ad78' },
+  { x: 76, y: 13, w: 4, h: 3, roof: '#58799d', wall: '#d4a36c' },
+  { x: 4, y: 48, w: 5, h: 4, roof: '#557451', wall: '#d49c64' },
+  { x: 13, y: 50, w: 4, h: 3, roof: '#58744f', wall: '#d4a36c' },
+  { x: 4, y: 57, w: 4, h: 3, roof: '#577b53', wall: '#d4a36c' },
+  { x: 68, y: 48, w: 5, h: 4, roof: '#a27a3f', wall: '#d6ac6f' },
+  { x: 77, y: 50, w: 4, h: 3, roof: '#98713f', wall: '#d4a36c' },
+  { x: 76, y: 57, w: 4, h: 3, roof: '#a17b42', wall: '#d4a36c' },
+];
 const MATERIALS: Record<Material, { name: string; mark: string; color: string }> = {
   petals: { name: 'Marigold petals', mark: '✿', color: '#ffba48' },
   wicks: { name: 'Cotton wicks', mark: '≋', color: '#fff0c8' },
@@ -36,7 +58,7 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
         <div class="village-tip"><span>✦</span><p>Walk through a material to collect it. Visit the lantern stall and press <kbd>E</kbd> to craft.</p></div>
       </aside>
       <section class="world-panel" aria-label="Village map">
-        <div class="world-heading"><div><span class="live-dot"></span><strong>THE LANTERN QUARTER</strong></div><span class="world-coords" id="world-coords">X 07 · Y 10</span></div>
+        <div class="world-heading"><div><span class="live-dot"></span><strong>THE LANTERN VILLAGE</strong></div><span class="world-coords" id="world-coords">X 010 · Y 016</span></div>
         <div class="world-viewport"><canvas class="village-canvas" width="672" height="384" aria-label="Pixel-art village. Use WASD or arrow keys to move; press E near the lantern stall."></canvas><div class="world-toast" id="world-toast" aria-live="polite"></div><button class="world-prompt" id="world-prompt" type="button" hidden><span>E</span> CRAFT AT LANTERN STALL</button></div>
         <div class="world-footer"><span><kbd>W A S D</kbd> <kbd>↑ ↓ ← →</kbd> MOVE</span><span><kbd>E</kbd> INTERACT</span><span class="world-night"><span>◒</span> NIGHT 01 · FESTIVAL EVE</span></div>
       </section>
@@ -82,14 +104,28 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
   const questArrow = root.querySelector<HTMLElement>('#primary-quest-arrow');
   const collected: Record<Material, number> = { petals: 0, wicks: 0, glowDust: 0 };
   const pickups: Pickup[] = [
-    { x: 8, y: 4, material: 'petals', collected: false },
-    { x: 9, y: 11, material: 'wicks', collected: false },
-    { x: 20, y: 9, material: 'petals', collected: false },
-    { x: 26, y: 5, material: 'glowDust', collected: false },
-    { x: 17, y: 13, material: 'wicks', collected: false },
-    { x: 5, y: 13, material: 'glowDust', collected: false },
+    { x: 11, y: 16, material: 'petals', collected: false },
+    { x: 14, y: 25, material: 'wicks', collected: false },
+    { x: 27, y: 31, material: 'petals', collected: false },
+    { x: 36, y: 34, material: 'glowDust', collected: false },
+    { x: 48, y: 30, material: 'wicks', collected: false },
+    { x: 59, y: 32, material: 'petals', collected: false },
+    { x: 72, y: 20, material: 'glowDust', collected: false },
+    { x: 69, y: 31, material: 'petals', collected: false },
+    { x: 12, y: 39, material: 'wicks', collected: false },
+    { x: 28, y: 33, material: 'glowDust', collected: false },
+    { x: 52, y: 31, material: 'petals', collected: false },
+    { x: 72, y: 40, material: 'wicks', collected: false },
+    { x: 25, y: 52, material: 'glowDust', collected: false },
+    { x: 45, y: 53, material: 'petals', collected: false },
+    { x: 58, y: 51, material: 'wicks', collected: false },
+    { x: 40, y: 21, material: 'glowDust', collected: false },
+    { x: 42, y: 44, material: 'petals', collected: false },
+    { x: 33, y: 48, material: 'wicks', collected: false },
   ];
-  const player = { x: 7, y: 10, facing: 1, direction: 0, step: 0 };
+  const player = { x: 10, y: 16, facing: 1, direction: 0, step: 0 };
+  let cameraX = 0;
+  let cameraY = 0;
   const held = new Set<string>();
   let lastMove = 0;
   let toastTimeout = 0;
@@ -152,7 +188,7 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
     const nx = player.x + dx;
     const ny = player.y + dy;
     if (nx < 1 || nx > MAP_WIDTH - 2 || ny < 1 || ny > MAP_HEIGHT - 2) return;
-    if ((nx >= 2 && nx <= 5 && ny >= 2 && ny <= 4) || (nx >= 21 && nx <= 25 && ny >= 2 && ny <= 4) || (nx >= 1 && nx <= 4 && ny >= 10 && ny <= 12) || (nx >= 12 && nx <= 16 && ny >= 5 && ny <= 7)) return;
+    if (HOUSES.some((house) => nx >= house.x && nx < house.x + house.w && ny >= house.y && ny < house.y + house.h)) return;
     player.x = nx;
     player.y = ny;
     player.facing = dx < 0 ? -1 : dx > 0 ? 1 : player.facing;
@@ -161,120 +197,85 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
     collectAtPlayer();
   };
 
-  const drawGround = (context: CanvasRenderingContext2D, scale: number, width: number, height: number): void => {
-    context.save();
-    context.scale(scale, scale);
-    const columns = width / TILE;
-    const rows = height / TILE;
-    for (let y = 0; y < rows; y++) {
-      for (let x = 0; x < columns; x++) {
-        const noise = (x * 7 + y * 11) % 5;
-        if (tileAtlas.complete && tileAtlas.naturalWidth) {
-          const sourceX = noise === 0 ? 0 : noise === 1 ? 32 : 0;
-          const sourceY = noise === 1 ? 0 : 0;
-          context.drawImage(tileAtlas, sourceX, sourceY, 32, 32, x * TILE, y * TILE, TILE, TILE);
-        } else {
-          context.fillStyle = ['#29483a', '#2d4b3b', '#304d3c', '#294638', '#324e3d'][noise];
-          context.fillRect(x * TILE, y * TILE, TILE, TILE);
-          context.fillStyle = 'rgba(16, 30, 23, .22)';
-          context.fillRect(x * TILE, (y + 1) * TILE - 2, TILE, 2);
-          context.fillRect((x + 1) * TILE - 2, y * TILE, 2, TILE);
-        }
-        if ((!tileAtlas.complete || !tileAtlas.naturalWidth) && (x * 13 + y * 19) % 7 === 0) {
-          context.fillStyle = '#52734c';
-          context.fillRect(x * TILE + 5, y * TILE + 7, 2, 2);
-        }
-      }
+  const drawGround = (context: CanvasRenderingContext2D): void => {
+    const startX = Math.floor(cameraX / TILE);
+    const startY = Math.floor(cameraY / TILE);
+    const offsetX = cameraX % TILE;
+    const offsetY = cameraY % TILE;
+    const toScreenX = (x: number): number => x * TILE - cameraX;
+    const toScreenY = (y: number): number => y * TILE - cameraY;
+    const tile = (x: number, y: number, sourceX: number, sourceY = 0): void => {
+      const sx = toScreenX(x); const sy = toScreenY(y);
+      if (tileAtlas.complete && tileAtlas.naturalWidth) context.drawImage(tileAtlas, sourceX, sourceY, 32, 32, sx, sy, TILE, TILE);
+      else { context.fillStyle = sourceY === 32 ? '#a77c54' : '#a77a4e'; context.fillRect(sx, sy, TILE, TILE); }
+    };
+    context.fillStyle = '#29483a'; context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+    for (let vy = 0; vy <= VIEW_HEIGHT_TILES; vy++) for (let vx = 0; vx <= VIEW_WIDTH_TILES; vx++) {
+      const x = startX + vx; const y = startY + vy;
+      const noise = (x * 7 + y * 11) % 5;
+      const sx = vx * TILE - offsetX; const sy = vy * TILE - offsetY;
+      if (tileAtlas.complete && tileAtlas.naturalWidth) context.drawImage(tileAtlas, noise === 1 ? 32 : 0, 0, 32, 32, sx, sy, TILE, TILE);
+      else { context.fillStyle = ['#29483a','#2d4b3b','#304d3c','#294638','#324e3d'][noise]; context.fillRect(sx,sy,TILE,TILE); }
     }
-    const tile = (x: number, y: number, color: string, accent?: string): void => {
-      if (tileAtlas.complete && tileAtlas.naturalWidth) {
-        const sourceX = color === '#b4875a' ? 160 : x >= 11 && x <= 17 && y >= 6 && y <= 9 ? 224 : y >= 6 && y <= 9 ? 128 : 96;
-        const sourceY = color === '#b4875a' ? 32 : 0;
-        context.drawImage(tileAtlas, sourceX, sourceY, 32, 32, x * TILE, y * TILE, TILE, TILE);
-        return;
-      }
-      context.fillStyle = color;
-      context.fillRect(x * TILE, y * TILE, TILE, TILE);
-      context.fillStyle = accent ?? 'rgba(69, 45, 30, .35)';
-      context.fillRect(x * TILE, y * TILE + TILE - 3, TILE, 3);
-      context.fillRect((x + 1) * TILE - 3, y * TILE, 3, TILE);
-    };
-    // A winding, hand-laid sandstone path through the green courtyard.
-    for (let y = 6; y <= 9; y++) for (let x = 0; x < columns; x++) tile(x, y, '#a97a4e', '#805a3c');
-    for (let x = 11; x <= 17; x++) for (let y = 0; y < rows; y++) tile(x, y, '#a97a4e', '#805a3c');
-    for (let y = 4; y <= 11; y++) for (let x = 12; x <= 16; x++) tile(x, y, '#b4875a', '#8a6243');
-    // Market huts and tiled roofs.
+    // Wide paths connect each of the four base neighborhoods to the festival courtyard.
+    for (let y = 0; y < MAP_HEIGHT; y++) for (let x = 0; x < MAP_WIDTH; x++) {
+      const centralRoad = (x >= 40 && x <= 43) || (y >= 30 && y <= 33);
+      const diagonalRoad = (x >= 10 && x <= 12 && y >= 10 && y <= 30) || (x >= 72 && x <= 74 && y >= 10 && y <= 30)
+        || (x >= 10 && x <= 12 && y >= 33 && y <= 54) || (x >= 72 && x <= 74 && y >= 33 && y <= 54);
+      if (centralRoad || diagonalRoad) tile(x, y, (x === 41 && y === 31) ? 224 : (y === 31 && x >= 40 && x <= 43) ? 128 : 96);
+      if (x >= 37 && x <= 46 && y >= 27 && y <= 36) tile(x, y, 160, 32);
+    }
     const house = (x: number, y: number, w: number, h: number, roof: string, wall: string): void => {
-      context.fillStyle = 'rgba(14, 20, 17, .42)';
-      context.fillRect((x + 1) * TILE, (y + h) * TILE - 2, w * TILE, 7);
-      context.fillStyle = wall;
-      context.fillRect(x * TILE + 3, y * TILE + 11, w * TILE - 6, h * TILE - 10);
-      context.fillStyle = roof;
-      context.fillRect(x * TILE, y * TILE + 3, w * TILE, 12);
-      context.fillStyle = '#f1cf91';
-      context.fillRect(x * TILE + 5, y * TILE + 13, w * TILE - 10, 3);
-      context.fillStyle = '#51372e';
-      context.fillRect((x + Math.floor(w / 2)) * TILE - 4, (y + h) * TILE - 18, 8, 18);
-      for (let bx = 0; bx < w * 2; bx++) {
-        context.fillStyle = bx % 2 ? 'rgba(255,215,142,.28)' : 'rgba(80,42,27,.12)';
-        context.fillRect(x * TILE + bx * 6, y * TILE + 5, 6, 6);
-      }
+      const sx = toScreenX(x); const sy = toScreenY(y);
+      if (sx > context.canvas.width || sy > context.canvas.height || sx + w*TILE < 0 || sy + h*TILE < 0) return;
+      context.fillStyle = 'rgba(14,20,17,.42)'; context.fillRect(sx + TILE, sy + h*TILE - 2, w*TILE, 7);
+      context.fillStyle = wall; context.fillRect(sx + 3, sy + 11, w*TILE - 6, h*TILE - 10);
+      context.fillStyle = roof; context.fillRect(sx, sy + 3, w*TILE, 12);
+      context.fillStyle = '#f1cf91'; context.fillRect(sx + 5, sy + 13, w*TILE - 10, 3);
+      context.fillStyle = '#51372e'; context.fillRect(sx + (Math.floor(w/2))*TILE - 4, sy + h*TILE - 18, 8, 18);
+      for (let bx=0; bx<w*2; bx++) { context.fillStyle=bx%2?'rgba(255,215,142,.28)':'rgba(80,42,27,.12)'; context.fillRect(sx+bx*6,sy+5,6,6); }
     };
-    house(2, 2, 4, 3, '#984f3f', '#d49c64');
-    house(21, 2, 5, 3, '#7f5148', '#c68e5e');
-    house(1, 10, 4, 3, '#8f5741', '#d4a36c');
-    // A lantern stall beside the central path.
-    house(12, 5, 5, 3, '#a34432', '#d9a85e');
-    context.fillStyle = '#30261f';
-    context.fillRect(12 * TILE + 7, 7 * TILE + 10, 5 * TILE - 14, 4);
-    context.fillStyle = '#f1c96e';
-    context.fillRect(13 * TILE, 6 * TILE + 2, 3 * TILE, 9);
-    context.fillStyle = '#c65e3f';
-    context.fillRect(13 * TILE + 4, 6 * TILE + 4, 3 * TILE - 8, 5);
-    context.fillStyle = '#fff0b5';
-    context.fillRect(14 * TILE - 1, 6 * TILE + 10, 3, 3);
-    // Rangoli medallions and small festival lamps.
-    const rangoli = (cx: number, cy: number): void => {
-      context.fillStyle = '#d99555'; context.fillRect(cx - 14, cy - 2, 28, 4); context.fillRect(cx - 2, cy - 14, 4, 28);
-      context.fillStyle = '#d6b6df'; context.fillRect(cx - 8, cy - 8, 16, 16);
-      context.fillStyle = '#f2c26b'; context.fillRect(cx - 3, cy - 3, 6, 6);
-    };
-    rangoli(8 * TILE + 12, 3 * TILE + 12);
-    rangoli(19 * TILE + 12, 12 * TILE + 12);
-    [[7, 5], [10, 10], [19, 5], [7, 12], [20, 10]].forEach(([x, y], index) => {
-      if (tileAtlas.complete && tileAtlas.naturalWidth) {
-        const sourceX = index % 2 ? 32 : 224;
-        const sourceY = index % 2 ? 64 : 96;
-        context.drawImage(tileAtlas, sourceX, sourceY, 32, 32, x * TILE, y * TILE, TILE, TILE);
-        return;
-      }
-      context.fillStyle = '#4f3a2d'; context.fillRect(x * TILE + 8, y * TILE + 14, 9, 5);
-      context.fillStyle = index % 2 ? '#ff9a44' : '#ffd568'; context.fillRect(x * TILE + 11, y * TILE + 9, 3, 6);
-      context.fillStyle = 'rgba(255, 190, 94, .22)'; context.fillRect(x * TILE + 4, y * TILE + 5, 17, 17);
+    HOUSES.forEach((item) => house(item.x,item.y,item.w,item.h,item.roof,item.wall));
+    BASES.forEach((base) => {
+      const bx=toScreenX(base.x); const by=toScreenY(base.y);
+      context.fillStyle='#3b2b22'; context.fillRect(bx+4,by+3,16,17);
+      context.fillStyle=base.color; context.fillRect(bx+6,by+5,12,11);
+      context.fillStyle='#ffe1a0'; context.fillRect(bx+10,by+8,4,4);
     });
-    context.restore();
+    // Courtyard lantern stall.
+    const sx = toScreenX(CRAFT_STATION.x); const sy = toScreenY(CRAFT_STATION.y);
+    context.fillStyle='#30261f'; context.fillRect(sx-12,sy+12,48,4);
+    context.fillStyle='#f1c96e'; context.fillRect(sx-8,sy-12,40,18);
+    context.fillStyle='#c65e3f'; context.fillRect(sx-3,sy-9,30,8);
+    context.fillStyle='#fff0b5'; context.fillRect(sx+10,sy,4,4);
+    const decorations = [[7,8],[18,14],[29,18],[54,16],[77,23],[8,34],[21,41],[32,52],[51,45],[71,47],[77,58],[16,57],[63,9],[58,56],[34,27],[51,37]];
+    decorations.forEach(([x,y],index) => {
+      const dx=toScreenX(x); const dy=toScreenY(y);
+      if (dx < -TILE || dy < -TILE || dx > context.canvas.width || dy > context.canvas.height) return;
+      if (index%3===0) { context.fillStyle='#d99555'; context.fillRect(dx+4,dy+10,16,3); context.fillRect(dx+10,dy+4,3,16); context.fillStyle='#d6b6df'; context.fillRect(dx+8,dy+8,8,8); context.fillStyle='#f2c26b'; context.fillRect(dx+10,dy+10,4,4); }
+      else { context.fillStyle='rgba(255,190,94,.22)'; context.fillRect(dx+4,dy+5,16,16); context.fillStyle='#4f3a2d'; context.fillRect(dx+8,dy+13,9,5); context.fillStyle=index%2?'#ff9a44':'#ffd568'; context.fillRect(dx+11,dy+8,3,6); }
+    });
   };
 
   const drawScene = (): void => {
     if (!ctx || !canvas) return;
-    const scaleX = canvas.width / (MAP_WIDTH * TILE);
-    const scaleY = canvas.height / (MAP_HEIGHT * TILE);
-    drawGround(ctx, scaleX, canvas.width, canvas.height);
-    ctx.save();
-    ctx.scale(scaleX, scaleY);
+    cameraX = Math.max(0, Math.min(MAP_WIDTH*TILE-canvas.width, player.x*TILE+TILE/2-canvas.width/2));
+    cameraY = Math.max(0, Math.min(MAP_HEIGHT*TILE-canvas.height, player.y*TILE+TILE/2-canvas.height/2));
+    drawGround(ctx);
     // Floating material pickups.
     pickups.filter((pickup) => !pickup.collected).forEach((pickup) => {
       const info = MATERIALS[pickup.material];
-      const px = pickup.x * TILE + 12;
-      const py = pickup.y * TILE + 11 + Math.sin(performance.now() / 330 + pickup.x) * 1.5;
+      const px = pickup.x * TILE + 12 - cameraX;
+      const py = pickup.y * TILE + 11 - cameraY + Math.sin(performance.now() / 330 + pickup.x) * 1.5;
+      if (px < -16 || py < -16 || px > canvas.width+16 || py > canvas.height+16) return;
       ctx.fillStyle = 'rgba(12, 20, 18, .36)'; ctx.fillRect(px - 6, py + 9, 12, 4);
       ctx.fillStyle = info.color; ctx.fillRect(px - 4, py - 4, 8, 8);
       ctx.fillStyle = '#fff2c4'; ctx.fillRect(px - 1, py - 7, 3, 3);
       ctx.fillStyle = 'rgba(255,225,154,.38)'; ctx.fillRect(px - 8, py - 9, 16, 2);
     });
     // Use the original crisp-edged protagonist spritesheet when it has loaded.
-    const px = player.x * TILE + 12;
-    const py = player.y * TILE + 11 + (held.size ? Math.sin(performance.now() / 48) * 1 : 0);
+    const px = player.x * TILE + 12 - cameraX;
+    const py = player.y * TILE + 11 - cameraY + (held.size ? Math.sin(performance.now() / 48) * 1 : 0);
     if (heroSheet.complete && heroSheet.naturalWidth) {
       const frame = player.step % 2;
       ctx.drawImage(heroSheet, frame * 32, player.direction * 40, 32, 40, px - 12, py - 20, 24, 30);
@@ -289,7 +290,6 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
       ctx.fillStyle = '#3b302c'; ctx.fillRect(px - 5, py + 11, 4, 4); ctx.fillRect(px + 2, py + 11, 4, 4);
       ctx.fillStyle = '#ffda7a'; ctx.fillRect(px - 10, py - 18, 20, 3);
     }
-    ctx.restore();
     if (coord) coord.textContent = `X ${String(player.x).padStart(2, '0')} · Y ${String(player.y).padStart(2, '0')}`;
     if (prompt) prompt.hidden = !nearStall();
     drawMinimap();
@@ -300,11 +300,9 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
     const sx = minimap.width / MAP_WIDTH;
     const sy = minimap.height / MAP_HEIGHT;
     miniCtx.fillStyle = '#243c30'; miniCtx.fillRect(0, 0, minimap.width, minimap.height);
-    miniCtx.fillStyle = '#9a704b'; miniCtx.fillRect(0, sy * 6, minimap.width, sy * 4); miniCtx.fillRect(sx * 11, 0, sx * 6, minimap.height);
-    miniCtx.fillStyle = '#b74e3b'; miniCtx.fillRect(sx * 12, sy * 5, sx * 5, sy * 3);
-    [[2, 2, 4, 3], [21, 2, 5, 3], [1, 10, 4, 3]].forEach(([x, y, w, h]) => {
-      miniCtx!.fillStyle = '#b66f51'; miniCtx!.fillRect(x * sx, y * sy, w * sx, h * sy);
-    });
+    miniCtx.fillStyle = '#9a704b'; miniCtx.fillRect(0, sy*30, minimap.width, sy*4); miniCtx.fillRect(sx*40,0,sx*4,minimap.height);
+    miniCtx.fillStyle = '#c29a6c'; miniCtx.fillRect(sx*37,sy*27,sx*10,sy*10);
+    HOUSES.forEach((house) => { miniCtx!.fillStyle=house.roof; miniCtx!.fillRect(house.x*sx,house.y*sy,house.w*sx,house.h*sy); });
     miniCtx.fillStyle = '#ffd36c'; miniCtx.fillRect(CRAFT_STATION.x * sx + 3, CRAFT_STATION.y * sy + 3, 5, 5);
     miniCtx.fillStyle = '#fff3ce'; miniCtx.fillRect(player.x * sx + 2, player.y * sy + 2, 5, 5);
   };
@@ -365,3 +363,4 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
   requestAnimationFrame(frame);
   return root;
 }
+
