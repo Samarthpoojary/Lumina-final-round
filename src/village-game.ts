@@ -218,7 +218,7 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
       else { context.fillStyle = ['#29483a','#2d4b3b','#304d3c','#294638','#324e3d'][noise]; context.fillRect(sx,sy,TILE,TILE); }
     }
     // Wide paths connect each of the four base neighborhoods to the festival courtyard.
-    for (let y = 0; y < MAP_HEIGHT; y++) for (let x = 0; x < MAP_WIDTH; x++) {
+    for (let y = startY; y <= Math.min(MAP_HEIGHT-1,startY+VIEW_HEIGHT_TILES); y++) for (let x = startX; x <= Math.min(MAP_WIDTH-1,startX+VIEW_WIDTH_TILES); x++) {
       const centralRoad = (x >= 40 && x <= 43) || (y >= 30 && y <= 33);
       const diagonalRoad = (x >= 10 && x <= 12 && y >= 10 && y <= 30) || (x >= 72 && x <= 74 && y >= 10 && y <= 30)
         || (x >= 10 && x <= 12 && y >= 33 && y <= 54) || (x >= 72 && x <= 74 && y >= 33 && y <= 54);
@@ -303,7 +303,14 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
     miniCtx.fillStyle = '#9a704b'; miniCtx.fillRect(0, sy*30, minimap.width, sy*4); miniCtx.fillRect(sx*40,0,sx*4,minimap.height);
     miniCtx.fillStyle = '#c29a6c'; miniCtx.fillRect(sx*37,sy*27,sx*10,sy*10);
     HOUSES.forEach((house) => { miniCtx!.fillStyle=house.roof; miniCtx!.fillRect(house.x*sx,house.y*sy,house.w*sx,house.h*sy); });
+    BASES.forEach((base) => { miniCtx!.fillStyle=base.color; miniCtx!.fillRect(base.x*sx,base.y*sy,Math.max(4,3*sx),Math.max(4,3*sy)); });
+    pickups.filter((pickup) => !pickup.collected).forEach((pickup) => {
+      miniCtx!.fillStyle=MATERIALS[pickup.material].color;
+      miniCtx!.fillRect(pickup.x*sx,pickup.y*sy,Math.max(2,1.5*sx),Math.max(2,1.5*sy));
+    });
     miniCtx.fillStyle = '#ffd36c'; miniCtx.fillRect(CRAFT_STATION.x * sx + 3, CRAFT_STATION.y * sy + 3, 5, 5);
+    miniCtx.strokeStyle = 'rgba(255,243,206,.65)'; miniCtx.lineWidth = 1;
+    miniCtx.strokeRect(cameraX/(MAP_WIDTH*TILE)*minimap.width,cameraY/(MAP_HEIGHT*TILE)*minimap.height,canvas!.width/(MAP_WIDTH*TILE)*minimap.width,canvas!.height/(MAP_HEIGHT*TILE)*minimap.height);
     miniCtx.fillStyle = '#fff3ce'; miniCtx.fillRect(player.x * sx + 2, player.y * sy + 2, 5, 5);
   };
 
