@@ -10,6 +10,8 @@ on:
   release:
     types: [published]
   workflow_run:
+    # Future CI/build/test workflows should use one of these names.
+    workflows: ["CI", "Build", "Tests"]
     types: [completed]
 
 permissions: {}
