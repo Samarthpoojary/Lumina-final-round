@@ -1,11 +1,11 @@
 const paths = [
-  { pin: 'D2', led: 'LED 1', color: '#f0aa56' },
-  { pin: 'D3', led: 'LED 2', color: '#61c6a5' },
-  { pin: 'D4', led: 'LED 3', color: '#7ca8ff' },
-  { pin: 'D5', led: 'LED 4', color: '#d79bdf' },
+  { id: 'diya-1', pin: 'D2', led: 'LED 1', color: '#f0aa56' },
+  { id: 'diya-2', pin: 'D3', led: 'LED 2', color: '#61c6a5' },
+  { id: 'diya-3', pin: 'D4', led: 'LED 3', color: '#7ca8ff' },
+  { id: 'diya-4', pin: 'D5', led: 'LED 4', color: '#d79bdf' },
 ] as const;
 
-function renderPath(pin: string, led: string, color: string, y: number): string {
+function renderPath(id: string, pin: string, led: string, color: string, y: number): string {
   const holesLeft = [300, 318, 336, 354, 372]
     .map((x) => `<circle class="board-hole" cx="${x}" cy="${y}" r="4" />`)
     .join('');
@@ -14,7 +14,7 @@ function renderPath(pin: string, led: string, color: string, y: number): string 
     .join('');
 
   return `
-    <g class="circuit-path" style="--path-color: ${color}">
+    <g class="circuit-path" data-led-path="${id}" style="--path-color: ${color}">
       <path class="path-wire" d="M 210 ${y} H 300" />
       <path class="row-net" d="M 300 ${y} H 372" />
       ${holesLeft}
@@ -64,7 +64,7 @@ export function createBoardView(): HTMLElement {
         <rect class="mcu" x="24" y="104" width="186" height="324" rx="16" />
         <text class="mcu-title" x="44" y="137">MICROCONTROLLER</text>
         <text class="mcu-subtitle" x="44" y="159">Digital output pins</text>
-        ${paths.map((path, index) => renderPath(path.pin, path.led, path.color, 190 + index * 66)).join('')}
+        ${paths.map((path, index) => renderPath(path.id, path.pin, path.led, path.color, 190 + index * 66)).join('')}
         <g class="mcu-terminals">
           ${paths.map((path, index) => `<text x="48" y="${194 + index * 66}">${path.pin}</text>`).join('')}
           <text x="48" y="414">GND</text>

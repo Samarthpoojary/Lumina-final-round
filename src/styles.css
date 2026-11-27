@@ -238,6 +238,17 @@ body {
   fill: #fbf4d8;
   stroke: #72836e;
   stroke-width: 2;
+  transition: fill 120ms ease, filter 120ms ease;
+}
+
+.circuit-path.is-active .led {
+  fill: #fff36a;
+  filter: drop-shadow(0 0 10px #ffd84a);
+}
+
+.circuit-path.is-active .led-ray {
+  stroke: #ffe15b;
+  stroke-width: 3;
 }
 
 .led-label {
@@ -313,11 +324,42 @@ body {
   outline-offset: 2px;
 }
 
+.sequence-button {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 20px;
+  padding: 10px 14px;
+  border: 1px solid #a892ff;
+  border-radius: 9px;
+  background: #765be5;
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.sequence-button:hover {
+  background: #866df0;
+}
+
+.sequence-button:focus-visible {
+  outline: 3px solid #d8ceff;
+  outline-offset: 2px;
+}
+
 .input-hint,
 .pin-status {
   color: #a6adbb;
   font-size: 0.83rem;
   line-height: 1.55;
+}
+
+.sequence-current {
+  min-height: 1.4em;
+  margin: 10px 0 0;
+  color: #ffe977;
+  font-size: 0.9rem;
+  font-weight: 650;
 }
 
 .input-hint {
