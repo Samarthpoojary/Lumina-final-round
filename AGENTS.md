@@ -2,6 +2,8 @@
 
 ## Project context
 
+Read the [Round 4 scope summary](docs/round-4-scope.md) and the canonical shared context linked there before taking a game-related task.
+
 This repository contains the game for **Round 4** of the larger four-round LUMINA project. Round 1 is nearly complete, while Rounds 2 and 3 are in progress. Do not assume this repository owns or implements the other rounds.
 
 Round 4 is **The Final Boss**: a free-build virtual breadboard circuit challenge. The current target documented in the shared project context is a four-LED sequential Diya chaser using an Arduino-style microcontroller module. The existing prototype uses simplified graph checking and simulated output; it is not a production electrical solver or physical-hardware connection. The canonical project context is [here](`https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md`).
