@@ -1,0 +1,176 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2688" height="2048" viewBox="0 0 2688 2048" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
+  <defs>
+    <pattern id="grass" width="32" height="32" patternUnits="userSpaceOnUse">
+      <rect width="32" height="32" fill="#426344" />
+      <path d="M4 7h4v2H4zM23 5h3v2h-3zM12 23h4v2h-4zM26 26h3v2h-3z" fill="#54784e" />
+      <path d="M17 13h3v2h-3zM5 19h2v3H5z" fill="#36583e" />
+    </pattern>
+    <pattern id="earth" width="32" height="32" patternUnits="userSpaceOnUse">
+      <rect width="32" height="32" fill="#9b704a" />
+      <path d="M4 5h6v2H4zM21 10h4v2h-4zM12 24h5v2h-5z" fill="#b48355" />
+      <path d="M17 15h3v2h-3zM5 19h3v2H5z" fill="#80583f" />
+    </pattern>
+    <pattern id="paving" width="32" height="32" patternUnits="userSpaceOnUse">
+      <rect width="32" height="32" fill="#b89669" />
+      <path d="M0 0h32v1H0zM0 16h32v1H0zM0 0v32h1V0zM16 0v16h1V0zM9 17v15h1V17z" fill="#d5b887" />
+      <path d="M4 5h4v2H4zM22 22h5v2h-5z" fill="#a98459" />
+    </pattern>
+    <g id="tree">
+      <ellipse cx="32" cy="54" rx="25" ry="7" fill="#263e32" opacity=".45" />
+      <path d="M27 30h11v24H27z" fill="#765039" />
+      <path d="M8 31h14V18h11V8h17v11h11v14H51v12H19V40H8z" fill="#31573c" />
+      <path d="M14 24h11V14h10V9h13v11h8v10H46v9H22v-8H14z" fill="#557849" />
+      <path d="M19 19h5v4h-5zM43 15h6v4h-6zM28 31h5v4h-5zM49 32h4v4h-4z" fill="#e2a84f" />
+    </g>
+    <g id="lamp">
+      <ellipse cx="16" cy="27" rx="13" ry="4" fill="#29362e" opacity=".4" />
+      <path d="M4 17h24l-4 7H8z" fill="#c96f3f" />
+      <path d="M12 15q4-12 8 0z" fill="#ffd86c" />
+      <path d="M14 13q2-5 4 0z" fill="#fff2ad" />
+      <path d="M1 14h30v2H1z" fill="#e8ad5d" opacity=".35" />
+    </g>
+    <g id="flower-bed">
+      <rect x="0" y="0" width="96" height="64" rx="5" fill="#704f39" />
+      <rect x="5" y="5" width="86" height="54" fill="#416345" />
+      <path d="M16 17h8v8h-8zM40 13h8v8h-8zM66 18h8v8h-8zM27 37h8v8h-8zM56 39h8v8h-8z" fill="#e79f47" />
+      <path d="M18 19h4v4h-4zM42 15h4v4h-4zM68 20h4v4h-4zM29 39h4v4h-4zM58 41h4v4h-4z" fill="#f6db9a" />
+      <path d="M12 14h16v2H12zM36 10h16v2H36zM62 15h16v2H62z" fill="#688351" />
+    </g>
+    <g id="house">
+      <ellipse cx="64" cy="120" rx="58" ry="10" fill="#26382e" opacity=".4" />
+      <path d="M7 47 64 9l57 38v60H7z" fill="#d2a76e" />
+      <path d="M0 49 64 4l64 45-7 11-57-39L7 60z" fill="#a14f3e" />
+      <path d="M13 48 64 12l51 36" fill="none" stroke="#d08052" stroke-width="5" />
+      <path d="M18 62h92v6H18z" fill="#f0d19a" />
+      <path d="M49 77h29v30H49z" fill="#5c3d2e" />
+      <path d="M25 76h14v14H25zM89 76h14v14H89z" fill="#60828a" stroke="#754e38" stroke-width="4" />
+      <path d="M31 76v14M25 83h14M95 76v14M89 83h14" stroke="#e7c58c" stroke-width="2" />
+      <path d="M51 50h26v6H51z" fill="#f3d890" />
+    </g>
+    <g id="market">
+      <ellipse cx="68" cy="80" rx="65" ry="8" fill="#29382d" opacity=".4" />
+      <path d="M13 34h108v40H13z" fill="#87593b" />
+      <path d="M4 15h126v28H4z" fill="#bd6044" />
+      <path d="M4 15h22v28H4zM48 15h20v28H48zM92 15h20v28H92z" fill="#f0c36a" />
+      <path d="M17 45h100v6H17z" fill="#e4b96c" />
+      <path d="M25 55h19v17H25zM53 55h19v17H53zM83 55h22v17H83z" fill="#d9a56b" />
+      <path d="M30 59h9v9h-9zM58 59h9v9h-9zM88 59h12v9H88z" fill="#eab85f" />
+    </g>
+    <g id="well">
+      <ellipse cx="48" cy="67" rx="44" ry="8" fill="#29382d" opacity=".35" />
+      <path d="M8 37h80v27H8z" fill="#987658" />
+      <path d="M13 40h70v21H13z" fill="#386b70" />
+      <path d="M5 34h86v8H5z" fill="#d0af7d" />
+      <path d="M14 16h6v19h-6zM76 16h6v19h-6zM14 14h68v5H14z" fill="#765139" />
+      <path d="M37 42h22v4H37zM42 51h28v3H42z" fill="#70a08b" opacity=".7" />
+      <path d="M25 22h15v3H25zM61 22h15v3H61z" fill="#e2c48b" />
+    </g>
+    <g id="pond">
+      <path d="M32 0c22 0 32 16 31 33S52 64 31 64 0 53 0 32 11 0 32 0z" fill="#315d63" stroke="#c6ad77" stroke-width="5" />
+      <path d="M11 21h16v3H11zM35 44h19v3H35zM27 11h10v3H27z" fill="#77a69a" />
+      <path d="M28 28h8v8h-8zM31 18h3v10M36 32h11" fill="none" stroke="#d9d08e" stroke-width="3" />
+      <path d="M5 32h7v4H5zM51 14h7v4h-7zM49 51h7v4h-7z" fill="#e3a45c" />
+    </g>
+    <g id="arch">
+      <path d="M5 73V39a31 31 0 0 1 62 0v34H54V39a18 18 0 0 0-36 0v34z" fill="#c08a53" />
+      <path d="M12 68V39a24 24 0 0 1 48 0v29H54V39a18 18 0 0 0-36 0v29z" fill="#ead29e" />
+      <path d="M22 73V40a14 14 0 0 1 28 0v33z" fill="#534036" />
+      <path d="M1 73h75v8H1zM7 26h58v4H7z" fill="#dba65d" />
+    </g>
+    <g id="banyan">
+      <ellipse cx="70" cy="105" rx="63" ry="10" fill="#263e32" opacity=".45" />
+      <path d="M61 50h19v50H61zM35 60h12v37H35zM91 57h12v41H91z" fill="#765039" />
+      <path d="M12 62h30V37h19V15h35v17h26v30h-17v20H36V72H12z" fill="#31573c" />
+      <path d="M19 50h26V30h21V20h24v17h21v19h-17v17H43V62H19z" fill="#5c8049" />
+      <path d="M22 57h6v28h-6zM45 67h5v32h-5zM111 61h5v27h-5z" fill="#78a35a" />
+      <path d="M31 44h8v8h-8zM72 28h8v7h-8zM95 49h8v7h-8z" fill="#e9b65b" />
+    </g>
+    <g id="rangoli">
+      <circle cx="64" cy="64" r="51" fill="#b88657" />
+      <circle cx="64" cy="64" r="44" fill="#8a5b4e" />
+      <path d="M64 17 75 48 111 39 82 64 111 89 75 80 64 111 53 80 17 89 46 64 17 39 53 48z" fill="#e6bd70" />
+      <circle cx="64" cy="64" r="19" fill="#f0dca7" />
+      <circle cx="64" cy="64" r="8" fill="#ce6847" />
+      <path d="M61 51h6v26h-6zM51 61h26v6H51z" fill="#6e8060" />
+      <circle cx="64" cy="64" r="37" fill="none" stroke="#f2dca5" stroke-width="3" stroke-dasharray="3 5" />
+    </g>
+    <g id="garden-row">
+      <path d="M0 5h192v17H0zM0 35h192v17H0zM0 65h192v17H0z" fill="#795c3f" />
+      <path d="M4 7h184v11H4zM4 37h184v11H4zM4 67h184v11H4z" fill="#557849" />
+      <path d="M16 8h8v8h-8zM48 8h8v8h-8zM80 8h8v8h-8zM112 8h8v8h-8zM144 8h8v8h-8zM176 8h8v8h-8z" fill="#e4a34e" />
+      <path d="M32 38h8v8h-8zM64 38h8v8h-8zM96 38h8v8h-8zM128 38h8v8h-8zM160 38h8v8h-8z" fill="#f0d48f" />
+      <path d="M16 68h8v8h-8zM48 68h8v8h-8zM80 68h8v8h-8zM112 68h8v8h-8zM144 68h8v8h-8zM176 68h8v8h-8z" fill="#d87b4d" />
+    </g>
+  </defs>
+  <rect width="2688" height="2048" fill="url(#grass)" />
+  <!-- Neighborhood clearings: four recognizable districts around a shared center. -->
+  <path d="M96 80h560v480H96z" fill="#60754c" opacity=".18" />
+  <path d="M2032 80h560v480h-560z" fill="#547c83" opacity=".18" />
+  <path d="M96 1488h560v480H96z" fill="#74894b" opacity=".17" />
+  <path d="M2032 1488h560v480h-560z" fill="#907344" opacity=".16" />
+  <!-- Main paved routes connect each corner neighborhood to the central courtyard. -->
+  <path d="M0 944h2688v160H0zM1264 0h160v2048h-160z" fill="url(#earth)" />
+  <path d="M0 976h2688v8H0zM0 1064h2688v8H0zM1296 0h8v2048h-8zM1384 0h8v2048h-8z" fill="#c99c67" opacity=".8" />
+  <!-- Side lanes lead into each neighborhood without breaking the broad center routes. -->
+  <path d="M320 400h640v96H320zM1728 400h640v96h-640zM320 1552h640v96H320zM1728 1552h640v96h-640z" fill="url(#earth)" />
+  <!-- Open courtyards near each base. Coordinates match the existing map's four base anchors. -->
+  <ellipse cx="320" cy="320" rx="204" ry="160" fill="url(#paving)" stroke="#e2c18a" stroke-width="12" />
+  <ellipse cx="2368" cy="320" rx="204" ry="160" fill="url(#paving)" stroke="#e2c18a" stroke-width="12" />
+  <ellipse cx="320" cy="1728" rx="204" ry="160" fill="url(#paving)" stroke="#e2c18a" stroke-width="12" />
+  <ellipse cx="2368" cy="1728" rx="204" ry="160" fill="url(#paving)" stroke="#e2c18a" stroke-width="12" />
+  <!-- Central shared festival courtyard. -->
+  <rect x="1088" y="800" width="512" height="448" rx="24" fill="url(#paving)" stroke="#e7ca91" stroke-width="16" />
+  <use href="#rangoli" x="1192" y="840" width="288" height="288" />
+  <path d="M1344 800v-80M1344 1248v80M1088 1024h-80M1600 1024h80" stroke="#d9a45e" stroke-width="22" />
+  <!-- Amber orchard neighborhood. -->
+  <use href="#house" x="160" y="96" width="192" height="180" />
+  <use href="#house" x="416" y="144" width="160" height="150" />
+  <use href="#market" x="224" y="400" width="192" height="128" />
+  <use href="#tree" x="80" y="336" width="128" height="128" />
+  <use href="#tree" x="544" y="352" width="128" height="128" />
+  <use href="#flower-bed" x="440" y="480" width="128" height="85" />
+  <!-- Sapphire waterside neighborhood. -->
+  <use href="#house" x="2112" y="96" width="192" height="180" />
+  <use href="#house" x="2368" y="144" width="160" height="150" />
+  <use href="#pond" x="2224" y="368" width="176" height="176" />
+  <use href="#arch" x="2464" y="368" width="112" height="128" />
+  <use href="#tree" x="2032" y="352" width="128" height="128" />
+  <use href="#tree" x="2528" y="544" width="128" height="128" />
+  <!-- Jade gardens and community well. -->
+  <use href="#house" x="160" y="1536" width="192" height="180" />
+  <use href="#house" x="416" y="1584" width="160" height="150" />
+  <use href="#well" x="192" y="1776" width="144" height="112" />
+  <use href="#garden-row" x="384" y="1776" width="256" height="112" />
+  <use href="#banyan" x="48" y="1792" width="176" height="128" />
+  <use href="#flower-bed" x="432" y="1904" width="128" height="85" />
+  <!-- Citrine craft and festival market neighborhood. -->
+  <use href="#house" x="2112" y="1536" width="192" height="180" />
+  <use href="#house" x="2368" y="1584" width="160" height="150" />
+  <use href="#market" x="2160" y="1792" width="224" height="144" />
+  <use href="#rangoli" x="2400" y="1776" width="144" height="144" />
+  <use href="#tree" x="2048" y="1824" width="128" height="128" />
+  <!-- Small flower islands, lamp pairs, and stepping stones make long routes scannable. -->
+  <use href="#flower-bed" x="752" y="688" width="128" height="85" />
+  <use href="#flower-bed" x="1808" y="688" width="128" height="85" />
+  <use href="#flower-bed" x="752" y="1280" width="128" height="85" />
+  <use href="#flower-bed" x="1808" y="1280" width="128" height="85" />
+  <use href="#lamp" x="1040" y="720" width="48" height="42" />
+  <use href="#lamp" x="1600" y="720" width="48" height="42" />
+  <use href="#lamp" x="1040" y="1280" width="48" height="42" />
+  <use href="#lamp" x="1600" y="1280" width="48" height="42" />
+  <use href="#lamp" x="720" y="944" width="48" height="42" />
+  <use href="#lamp" x="1920" y="944" width="48" height="42" />
+  <use href="#lamp" x="720" y="1064" width="48" height="42" />
+  <use href="#lamp" x="1920" y="1064" width="48" height="42" />
+  <!-- Existing base positions are marked with distinct colored wayfinding medallions. -->
+  <g stroke="#f5dba2" stroke-width="8">
+    <circle cx="320" cy="320" r="45" fill="#b95b45" />
+    <circle cx="2368" cy="320" r="45" fill="#587fb6" />
+    <circle cx="320" cy="1728" r="45" fill="#588c65" />
+    <circle cx="2368" cy="1728" r="45" fill="#c69b48" />
+  </g>
+  <path d="M302 320h36M320 302v36M2350 320h36M2368 302v36M302 1728h36M320 1710v36M2350 1728h36M2368 1710v36" stroke="#fff0bd" stroke-width="8" />
+  <!-- Quiet outer hedge border frames the playable field. -->
+  <path d="M16 16h2656v2016H16z" fill="none" stroke="#284c37" stroke-width="32" />
+</svg>
+
