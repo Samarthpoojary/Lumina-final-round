@@ -16,7 +16,7 @@ permissions: {}
 
 jobs:
   notify:
-    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'failure'
+    if: github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'failure' && github.event.workflow_run.name != 'Discord notifications')
     runs-on: ubuntu-latest
     steps:
       - name: Send a concise update to Discord
@@ -39,11 +39,15 @@ jobs:
           let description;
 
           if (kind === "issues") {
-            webhook = process.env.TASKS_WEBHOOK;
             const issue = event.issue;
+            const labels = (issue.labels || []).map(item => typeof item === "string" ? item : item.name || "");
+            const blockerLabel = labels.find(label => /^(blocked|queued|agent[- ]unavailable|failover)$/i.test(label));
+            webhook = blockerLabel ? process.env.BLOCKERS_WEBHOOK : process.env.TASKS_WEBHOOK;
             title = `Issue #${issue.number}: ${issue.title}`;
             url = issue.html_url;
-            description = `Task ${action} by @${event.sender?.login || "unknown"}.`;
+            description = blockerLabel
+              ? `Task status ${blockerLabel} (${action}) by @${event.sender?.login || "unknown"}.`
+              : `Task ${action} by @${event.sender?.login || "unknown"}.`;
           } else if (kind === "issue_comment") {
             webhook = process.env.REPORTS_WEBHOOK;
             const issue = event.issue;
