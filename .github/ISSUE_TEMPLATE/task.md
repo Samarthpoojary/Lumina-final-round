@@ -2,7 +2,6 @@
 name: Round 4 task
 about: Propose a scoped task for the LUMINA Round 4 game
 title: "[Task] "
-labels: ["task"]
 assignees: []
 ---
 
