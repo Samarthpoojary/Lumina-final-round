@@ -6,9 +6,9 @@ Read the [Round 4 scope summary](docs/round-4-scope.md) and the canonical shared
 
 This repository contains the game for **Round 4** of the larger four-round LUMINA project. Round 1 is nearly complete, while Rounds 2 and 3 are in progress. Do not assume this repository owns or implements the other rounds.
 
-Round 4 is **The Final Boss**: a free-build virtual breadboard circuit challenge. The current target documented in the shared project context is a four-LED sequential Diya chaser using an Arduino-style microcontroller module. The existing prototype uses simplified graph checking and simulated output; it is not a production electrical solver or physical-hardware connection. The canonical project context is [here](`https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md`).
+Round 4 is **The Final Boss**: a free-build virtual breadboard circuit challenge. The current target documented in the shared project context is a four-LED sequential Diya chaser using an Arduino-style microcontroller module. The existing prototype uses simplified graph checking and simulated output; it is not a production electrical solver or physical-hardware connection. The canonical project context is [here](https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md).
 
-The relationship between this dedicated Round 4 repository and the existing LUMINA prototype has not yet been decided. Before implementation, inspect the existing Round 4 prototype and follow the approved reuse/extraction plan. This repository context does not authorize starting game implementation.
+The user approved this dedicated repository as the standalone home for Round 4. The main LUMINA repository remains canonical for shared project context, and its Final Boss prototype is reference-only. Do not edit the earlier-round repository as part of Round 4 work. Any selected prototype parts may be ported selectively into this repository later through reviewed pull requests. Claude must review and approve major technical details such as the reuse method, implementation architecture, graph validation, simulation boundaries, and persistence before dependent implementation begins. This repository context does not authorize starting game implementation.
 
 ## Roles and authority
 
