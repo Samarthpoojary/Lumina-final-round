@@ -4,7 +4,9 @@
 
 This repository contains the game for **Round 4** of the larger four-round LUMINA project. Round 1 is nearly complete, while Rounds 2 and 3 are in progress. Do not assume this repository owns or implements the other rounds.
 
-The first playable milestone is a basic multiplayer world with player movement and resource collection. Follow the approved design and task scope; this milestone statement does not authorize extra features or technical choices.
+Round 4 is **The Final Boss**: a free-build virtual breadboard circuit challenge. The current target documented in the shared project context is a four-LED sequential Diya chaser using an Arduino-style microcontroller module. The existing prototype uses simplified graph checking and simulated output; it is not a production electrical solver or physical-hardware connection. The canonical project context is [here](`https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md`).
+
+The relationship between this dedicated Round 4 repository and the existing LUMINA prototype has not yet been decided. Before implementation, inspect the existing Round 4 prototype and follow the approved reuse/extraction plan. This repository context does not authorize starting game implementation.
 
 ## Roles and authority
 
