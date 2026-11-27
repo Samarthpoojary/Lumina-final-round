@@ -10,8 +10,6 @@ interface Pickup {
 const TILE = 24;
 const MAP_WIDTH = 84;
 const MAP_HEIGHT = 64;
-const VIEW_WIDTH_TILES = 28;
-const VIEW_HEIGHT_TILES = 16;
 const MOVE_DELAY = 125;
 const CRAFT_STATION = { x: 42, y: 32 };
 const BASES = [
@@ -58,12 +56,12 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
         <div class="village-tip"><span>✦</span><p>Walk through a material to collect it. Visit the lantern stall and press <kbd>E</kbd> to craft.</p></div>
       </aside>
       <section class="world-panel" aria-label="Village map">
-        <div class="world-heading"><div><span class="live-dot"></span><strong>THE LANTERN VILLAGE</strong></div><span class="world-coords" id="world-coords">X 010 · Y 016</span></div>
+        <div class="world-heading"><div><span class="live-dot"></span><strong>FESTIVAL GROUNDS</strong></div><span class="world-coords" id="world-coords">X 010 · Y 016</span></div>
         <div class="world-viewport"><canvas class="village-canvas" width="672" height="384" aria-label="Pixel-art village. Use WASD or arrow keys to move; press E near the lantern stall."></canvas><div class="world-toast" id="world-toast" aria-live="polite"></div><button class="world-prompt" id="world-prompt" type="button" hidden><span>E</span> CRAFT AT LANTERN STALL</button></div>
         <div class="world-footer"><span><kbd>W A S D</kbd> <kbd>↑ ↓ ← →</kbd> MOVE</span><span><kbd>E</kbd> INTERACT</span><span class="world-night"><span>◒</span> NIGHT 01 · FESTIVAL EVE</span></div>
       </section>
       <aside class="village-side">
-        <div class="minimap-panel"><div class="panel-label">VILLAGE MAP <span>YOU ARE HERE</span></div><canvas class="minimap-canvas" width="224" height="112" aria-label="Minimap showing your location"></canvas><div class="map-legend"><span><i class="legend-player"></i> You</span><span><i class="legend-stall"></i> Lantern stall</span></div></div>
+        <div class="minimap-panel"><div class="panel-label">WHOLE VILLAGE <span>YOU ARE HERE</span></div><canvas class="minimap-canvas" width="210" height="160" aria-label="Minimap showing the four village neighborhoods and your location"></canvas><div class="map-legend"><span><i class="legend-player"></i> You</span><span><i class="legend-stall"></i> Lantern stall</span></div></div>
         <div class="inventory-panel"><div class="panel-label">YOUR SATCHEL <span id="satchel-count">00 ITEMS</span></div><div class="inventory-grid" id="inventory-grid"></div><p class="inventory-note">Materials gathered tonight</p></div>
         <button class="circuit-link" type="button"><span>⌁</span><span><strong>Open Circuit Lab</strong><small>Try the Diya Chaser challenge</small></span><b>↗</b></button>
       </aside>
@@ -83,8 +81,8 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
 
   const canvas = root.querySelector<HTMLCanvasElement>('.village-canvas');
   const ctx = canvas?.getContext('2d');
-  const tileAtlas = new Image();
-  tileAtlas.src = '/game-art/village-tiles.svg';
+  const worldArt = new Image();
+  worldArt.src = '/game-art/diwali-village-world.svg';
   const heroSheet = new Image();
   heroSheet.src = '/game-art/protagonist-sprite.svg';
   const minimap = root.querySelector<HTMLCanvasElement>('.minimap-canvas');
@@ -198,63 +196,22 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
   };
 
   const drawGround = (context: CanvasRenderingContext2D): void => {
-    const startX = Math.floor(cameraX / TILE);
-    const startY = Math.floor(cameraY / TILE);
-    const offsetX = cameraX % TILE;
-    const offsetY = cameraY % TILE;
-    const toScreenX = (x: number): number => x * TILE - cameraX;
-    const toScreenY = (y: number): number => y * TILE - cameraY;
-    const tile = (x: number, y: number, sourceX: number, sourceY = 0): void => {
-      const sx = toScreenX(x); const sy = toScreenY(y);
-      if (tileAtlas.complete && tileAtlas.naturalWidth) context.drawImage(tileAtlas, sourceX, sourceY, 32, 32, sx, sy, TILE, TILE);
-      else { context.fillStyle = sourceY === 32 ? '#a77c54' : '#a77a4e'; context.fillRect(sx, sy, TILE, TILE); }
-    };
-    context.fillStyle = '#29483a'; context.fillRect(0, 0, context.canvas.width, context.canvas.height);
-    for (let vy = 0; vy <= VIEW_HEIGHT_TILES; vy++) for (let vx = 0; vx <= VIEW_WIDTH_TILES; vx++) {
-      const x = startX + vx; const y = startY + vy;
-      const noise = (x * 7 + y * 11) % 5;
-      const sx = vx * TILE - offsetX; const sy = vy * TILE - offsetY;
-      if (tileAtlas.complete && tileAtlas.naturalWidth) context.drawImage(tileAtlas, noise === 1 ? 32 : 0, 0, 32, 32, sx, sy, TILE, TILE);
-      else { context.fillStyle = ['#29483a','#2d4b3b','#304d3c','#294638','#324e3d'][noise]; context.fillRect(sx,sy,TILE,TILE); }
+    if (worldArt.complete && worldArt.naturalWidth) {
+      const scale = 32 / TILE;
+      const sourceX = cameraX * scale;
+      const sourceY = cameraY * scale;
+      const sourceWidth = context.canvas.width * scale;
+      const sourceHeight = context.canvas.height * scale;
+      context.imageSmoothingEnabled = false;
+      context.drawImage(worldArt, sourceX, sourceY, sourceWidth, sourceHeight, 0, 0, context.canvas.width, context.canvas.height);
+      return;
     }
-    // Wide paths connect each of the four base neighborhoods to the festival courtyard.
-    for (let y = startY; y <= Math.min(MAP_HEIGHT-1,startY+VIEW_HEIGHT_TILES); y++) for (let x = startX; x <= Math.min(MAP_WIDTH-1,startX+VIEW_WIDTH_TILES); x++) {
-      const centralRoad = (x >= 40 && x <= 43) || (y >= 30 && y <= 33);
-      const diagonalRoad = (x >= 10 && x <= 12 && y >= 10 && y <= 30) || (x >= 72 && x <= 74 && y >= 10 && y <= 30)
-        || (x >= 10 && x <= 12 && y >= 33 && y <= 54) || (x >= 72 && x <= 74 && y >= 33 && y <= 54);
-      if (centralRoad || diagonalRoad) tile(x, y, (x === 41 && y === 31) ? 224 : (y === 31 && x >= 40 && x <= 43) ? 128 : 96);
-      if (x >= 37 && x <= 46 && y >= 27 && y <= 36) tile(x, y, 160, 32);
-    }
-    const house = (x: number, y: number, w: number, h: number, roof: string, wall: string): void => {
-      const sx = toScreenX(x); const sy = toScreenY(y);
-      if (sx > context.canvas.width || sy > context.canvas.height || sx + w*TILE < 0 || sy + h*TILE < 0) return;
-      context.fillStyle = 'rgba(14,20,17,.42)'; context.fillRect(sx + TILE, sy + h*TILE - 2, w*TILE, 7);
-      context.fillStyle = wall; context.fillRect(sx + 3, sy + 11, w*TILE - 6, h*TILE - 10);
-      context.fillStyle = roof; context.fillRect(sx, sy + 3, w*TILE, 12);
-      context.fillStyle = '#f1cf91'; context.fillRect(sx + 5, sy + 13, w*TILE - 10, 3);
-      context.fillStyle = '#51372e'; context.fillRect(sx + (Math.floor(w/2))*TILE - 4, sy + h*TILE - 18, 8, 18);
-      for (let bx=0; bx<w*2; bx++) { context.fillStyle=bx%2?'rgba(255,215,142,.28)':'rgba(80,42,27,.12)'; context.fillRect(sx+bx*6,sy+5,6,6); }
-    };
-    HOUSES.forEach((item) => house(item.x,item.y,item.w,item.h,item.roof,item.wall));
-    BASES.forEach((base) => {
-      const bx=toScreenX(base.x); const by=toScreenY(base.y);
-      context.fillStyle='#3b2b22'; context.fillRect(bx+4,by+3,16,17);
-      context.fillStyle=base.color; context.fillRect(bx+6,by+5,12,11);
-      context.fillStyle='#ffe1a0'; context.fillRect(bx+10,by+8,4,4);
-    });
-    // Courtyard lantern stall.
-    const sx = toScreenX(CRAFT_STATION.x); const sy = toScreenY(CRAFT_STATION.y);
-    context.fillStyle='#30261f'; context.fillRect(sx-12,sy+12,48,4);
-    context.fillStyle='#f1c96e'; context.fillRect(sx-8,sy-12,40,18);
-    context.fillStyle='#c65e3f'; context.fillRect(sx-3,sy-9,30,8);
-    context.fillStyle='#fff0b5'; context.fillRect(sx+10,sy,4,4);
-    const decorations = [[7,8],[18,14],[29,18],[54,16],[77,23],[8,34],[21,41],[32,52],[51,45],[71,47],[77,58],[16,57],[63,9],[58,56],[34,27],[51,37]];
-    decorations.forEach(([x,y],index) => {
-      const dx=toScreenX(x); const dy=toScreenY(y);
-      if (dx < -TILE || dy < -TILE || dx > context.canvas.width || dy > context.canvas.height) return;
-      if (index%3===0) { context.fillStyle='#d99555'; context.fillRect(dx+4,dy+10,16,3); context.fillRect(dx+10,dy+4,3,16); context.fillStyle='#d6b6df'; context.fillRect(dx+8,dy+8,8,8); context.fillStyle='#f2c26b'; context.fillRect(dx+10,dy+10,4,4); }
-      else { context.fillStyle='rgba(255,190,94,.22)'; context.fillRect(dx+4,dy+5,16,16); context.fillStyle='#4f3a2d'; context.fillRect(dx+8,dy+13,9,5); context.fillStyle=index%2?'#ff9a44':'#ffd568'; context.fillRect(dx+11,dy+8,3,6); }
-    });
+
+    context.fillStyle = '#426344';
+    context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+    context.fillStyle = '#9b704a';
+    context.fillRect(0, 30 * TILE - cameraY, context.canvas.width, 4 * TILE);
+    context.fillRect(40 * TILE - cameraX, 0, 4 * TILE, context.canvas.height);
   };
 
   const drawScene = (): void => {
@@ -299,11 +256,20 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
     if (!miniCtx || !minimap) return;
     const sx = minimap.width / MAP_WIDTH;
     const sy = minimap.height / MAP_HEIGHT;
-    miniCtx.fillStyle = '#243c30'; miniCtx.fillRect(0, 0, minimap.width, minimap.height);
-    miniCtx.fillStyle = '#9a704b'; miniCtx.fillRect(0, sy*30, minimap.width, sy*4); miniCtx.fillRect(sx*40,0,sx*4,minimap.height);
-    miniCtx.fillStyle = '#c29a6c'; miniCtx.fillRect(sx*37,sy*27,sx*10,sy*10);
-    HOUSES.forEach((house) => { miniCtx!.fillStyle=house.roof; miniCtx!.fillRect(house.x*sx,house.y*sy,house.w*sx,house.h*sy); });
-    BASES.forEach((base) => { miniCtx!.fillStyle=base.color; miniCtx!.fillRect(base.x*sx,base.y*sy,Math.max(4,3*sx),Math.max(4,3*sy)); });
+    if (worldArt.complete && worldArt.naturalWidth) {
+      miniCtx.imageSmoothingEnabled = false;
+      miniCtx.drawImage(worldArt, 0, 0, worldArt.naturalWidth, worldArt.naturalHeight, 0, 0, minimap.width, minimap.height);
+    } else {
+      miniCtx.fillStyle = '#426344'; miniCtx.fillRect(0, 0, minimap.width, minimap.height);
+      miniCtx.fillStyle = '#9b704a'; miniCtx.fillRect(0, sy * 30, minimap.width, sy * 4); miniCtx.fillRect(sx * 40, 0, sx * 4, minimap.height);
+    }
+    BASES.forEach((base) => {
+      miniCtx!.fillStyle = base.color;
+      miniCtx!.fillRect(base.x * sx - 2, base.y * sy - 2, 6, 6);
+      miniCtx!.strokeStyle = '#f7e5b7';
+      miniCtx!.lineWidth = 1;
+      miniCtx!.strokeRect(base.x * sx - 2, base.y * sy - 2, 6, 6);
+    });
     pickups.filter((pickup) => !pickup.collected).forEach((pickup) => {
       miniCtx!.fillStyle=MATERIALS[pickup.material].color;
       miniCtx!.fillRect(pickup.x*sx,pickup.y*sy,Math.max(2,1.5*sx),Math.max(2,1.5*sy));
@@ -370,4 +336,5 @@ export function createVillageGame(openCircuit: () => void): HTMLElement {
   requestAnimationFrame(frame);
   return root;
 }
+
 
