@@ -412,3 +412,214 @@ body {
     text-align: left;
   }
 }
+
+/* Village gameplay slice */
+body:has(.lumina-app) {
+  background: #171714;
+  color: #f8ead0;
+  font-family: "Courier New", ui-monospace, monospace;
+}
+
+.lumina-app {
+  min-height: 100vh;
+  color: #f8ead0;
+  background: radial-gradient(ellipse at 50% 25%, #28251e 0, #171714 72%);
+  --gold: #efc477;
+  --ink: #292017;
+  --panel: #33291e;
+  --panel-light: #4d3a29;
+  --edge: #8b6741;
+}
+
+.game-header {
+  display: flex;
+  min-height: 66px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 8px clamp(16px, 3vw, 46px);
+  border-bottom: 3px solid #8e623d;
+  background: #e9c991;
+  color: #382a1b;
+  box-shadow: 0 4px 0 #39281b, 0 8px 18px #08080680;
+  font-family: "Courier New", ui-monospace, monospace;
+}
+
+.game-brand {
+  display: flex;
+  min-width: 180px;
+  align-items: center;
+  gap: 9px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.brand-lamp {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border: 2px solid #815b37;
+  background: #f8e5bb;
+  color: #ba632f;
+  font-size: 20px;
+  box-shadow: 2px 2px 0 #775636;
+}
+
+.game-brand strong,
+.game-brand small { display: block; }
+.game-brand strong { font-size: 15px; letter-spacing: .12em; }
+.game-brand small { margin-top: 2px; font-size: 9px; letter-spacing: .2em; }
+
+.game-tabs { display: flex; align-self: stretch; align-items: center; gap: 7px; }
+.game-tab {
+  min-height: 34px;
+  padding: 6px 14px;
+  border: 2px solid #725436;
+  background: #d6b783;
+  color: #44301e;
+  font: 700 11px "Courier New", ui-monospace, monospace;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 #896d47;
+}
+.game-tab.is-selected { background: #6d422d; color: #fff0cf; box-shadow: inset 0 0 0 2px #ad8050; }
+.game-tab:focus-visible,.craft-button:focus-visible,.circuit-link:focus-visible { outline: 3px solid #fff0a9; outline-offset: 3px; }
+.header-season { display: flex; align-items: center; gap: 8px; font-size: 10px; font-weight: 700; letter-spacing: .12em; }
+.header-season b { padding: 3px 6px; border: 1px solid #8a6947; background: #f6dfb3; }
+.season-dot,.live-dot { width: 8px; height: 8px; border-radius: 50%; background: #c7773e; box-shadow: 0 0 10px #f4b55e; }
+.game-screen { min-height: calc(100vh - 66px); }
+
+.village-game {
+  width: min(100%, 1480px);
+  margin: 0 auto;
+  padding: clamp(16px, 2.5vw, 34px) clamp(14px, 3vw, 42px) 30px;
+  outline: none;
+}
+.village-topline { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin: 0 0 18px; }
+.village-kicker,.craft-kicker { margin: 0 0 6px; color: #e9bc70; font-size: 10px; font-weight: 700; letter-spacing: .18em; }
+.village-topline h1 { margin: 0; color: #f9e6c2; font: 700 clamp(24px, 3vw, 36px) Georgia, serif; letter-spacing: -.03em; }
+.village-intro { margin: 6px 0 0; color: #c5b399; font-size: 12px; }
+.player-card { display: flex; align-items: center; gap: 9px; padding: 8px 12px; border: 2px solid #73553a; background: linear-gradient(#443426,#30271e); box-shadow: 3px 3px 0 #17130f; }
+.player-avatar { display: grid; width: 31px; height: 34px; place-items: center; border: 2px solid #efc477; background: #8c4938; color: #ffe1a0; font-size: 18px; image-rendering: pixelated; }
+.player-card strong,.player-card small { display: block; }
+.player-card strong { color: #fff1d5; font-size: 12px; }
+.player-card small { margin-top: 3px; color: #cbb492; font-size: 9px; }
+.health { margin-left: 7px; color: #ed765e; font-size: 16px; letter-spacing: -2px; white-space: nowrap; text-shadow: 1px 2px 0 #582e2a; }
+.village-layout { display: grid; grid-template-columns: minmax(150px, .72fr) minmax(360px, 3fr) minmax(185px, .88fr); align-items: start; gap: 14px; }
+.village-quests,.world-panel,.minimap-panel,.inventory-panel { border: 2px solid #6d5237; background: #2a241c; box-shadow: 4px 5px 0 #110f0c; }
+.village-quests { padding: 12px 10px; }
+.panel-label { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-bottom: 9px; border-bottom: 1px solid #604a34; color: #f0cb87; font-size: 9px; font-weight: 700; letter-spacing: .12em; }
+.panel-label span { color: #bba27f; font-size: 8px; white-space: nowrap; }
+.quest-card { display: flex; align-items: center; gap: 8px; padding: 10px 2px; border-bottom: 1px solid #49392a; color: #dfc69e; }
+.quest-card.is-current { color: #fff0cb; }
+.quest-icon { display: grid; width: 26px; height: 26px; flex: 0 0 26px; place-items: center; border: 1px solid #947045; background: #51402a; color: #f5c568; font-size: 16px; }
+.quest-icon.muted { color: #99846a; }
+.quest-card strong,.quest-card small { display: block; }
+.quest-card strong { font-size: 9px; line-height: 1.4; }
+.quest-card small { margin-top: 3px; color: #b8a487; font-size: 8px; line-height: 1.35; }
+.quest-arrow { margin-left: auto; color: #eabd73; }
+.village-tip { display: flex; gap: 8px; margin-top: 12px; padding: 9px 8px; border: 1px solid #5b4832; background: #382c20; color: #e7c58c; }
+.village-tip span { color: #f4ce75; }
+.village-tip p { margin: 0; color: #c8b392; font-size: 9px; line-height: 1.55; }
+kbd { padding: 2px 4px; border: 1px solid #9b774a; border-bottom-width: 2px; background: #493522; color: #fff0c8; font: 700 9px "Courier New", monospace; }
+
+.world-panel { min-width: 0; padding: 10px; }
+.world-heading { display: flex; min-height: 28px; align-items: center; justify-content: space-between; gap: 8px; padding: 0 4px 8px; color: #f1d7a7; font-size: 9px; letter-spacing: .1em; }
+.world-heading > div { display: flex; align-items: center; gap: 8px; }
+.world-coords { color: #c0a783; font-size: 9px; }
+.world-viewport { position: relative; overflow: hidden; border: 3px solid #8c6642; background: #294638; box-shadow: inset 0 0 0 2px #3b2e20; }
+.village-canvas { display: block; width: 100%; height: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
+.world-footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 4px 0; color: #b9a382; font-size: 8px; letter-spacing: .07em; }
+.world-footer span { display: flex; align-items: center; gap: 4px; }
+.world-footer kbd { font-size: 8px; }
+.world-night { color: #e7c48a !important; }
+.world-night span { color: #fff1b8; font-size: 14px; }
+.world-toast { position: absolute; top: 12px; left: 50%; transform: translate(-50%,-8px); padding: 8px 12px; border: 2px solid #e8c77d; background: #30251de8; color: #fff1c4; font-size: 10px; opacity: 0; pointer-events: none; transition: opacity 130ms, transform 130ms; white-space: nowrap; }
+.world-toast.is-visible { transform: translate(-50%,0); opacity: 1; }
+.world-prompt { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 7px; padding: 7px 9px; border: 2px solid #e8c77d; background: #2d211ddd; color: #ffe8aa; font: 700 9px "Courier New", ui-monospace, monospace; letter-spacing: .08em; white-space: nowrap; box-shadow: 2px 2px 0 #20160e; cursor: pointer; }
+.world-prompt[hidden] { display: none; }
+.world-prompt span { display: grid; width: 18px; height: 18px; place-items: center; border: 1px solid #f1d594; background: #9e5635; color: #fff4d0; }
+
+.village-side { display: grid; gap: 12px; }
+.minimap-panel,.inventory-panel { padding: 11px; }
+.minimap-canvas { display: block; width: 100%; height: auto; margin-top: 10px; border: 2px solid #806144; image-rendering: pixelated; }
+.map-legend { display: flex; justify-content: space-between; gap: 8px; margin-top: 8px; color: #baa887; font-size: 8px; }
+.map-legend span { display: flex; align-items: center; gap: 4px; }
+.map-legend i { display: inline-block; width: 8px; height: 8px; background: #fff0b7; }
+.map-legend .legend-stall { background: #ffd36c; }
+.inventory-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 6px; margin-top: 9px; }
+.inventory-slot { display: grid; grid-template-columns: 26px 1fr; grid-template-rows: auto auto; align-items: center; min-height: 42px; padding: 5px; border: 1px solid #705438; background: #382c20; }
+.item-glyph { grid-row: 1 / 3; display: grid; width: 23px; height: 27px; place-items: center; border: 1px solid #806044; background: #4a3928; color: var(--item-color, #f1cf82); font-size: 16px; }
+.inventory-slot strong { color: #f6ddb1; font-size: 11px; }
+.inventory-slot small { overflow: hidden; color: #bba687; font-size: 7px; text-overflow: ellipsis; white-space: nowrap; }
+.charm-slot .item-glyph { color: #e5b8ee; }
+.inventory-note { margin: 8px 0 0; color: #a99575; font-size: 8px; }
+.circuit-link { display: flex; align-items: center; gap: 9px; width: 100%; padding: 10px; border: 2px solid #78583a; background: #3b3024; color: #efdbb6; text-align: left; cursor: pointer; box-shadow: 3px 3px 0 #17130f; }
+.circuit-link > span:first-child { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid #896d49; background: #4d4832; color: #f5ca73; font-size: 20px; }
+.circuit-link strong,.circuit-link small { display: block; }
+.circuit-link strong { font: 700 9px "Courier New", monospace; }
+.circuit-link small { margin-top: 4px; color: #bba887; font: 8px "Courier New", monospace; }
+.circuit-link b { margin-left: auto; color: #ecc875; }
+
+.craft-backdrop { position: fixed; z-index: 20; inset: 0; display: grid; place-items: center; padding: 18px; background: #0d0b0be0; }
+.craft-backdrop[hidden] { display: none; }
+.craft-dialog { width: min(100%, 520px); padding: 18px; border: 3px solid #9b7246; background: #d7b17a; color: #30241b; box-shadow: 8px 8px 0 #090807, inset 0 0 0 2px #f5dba9; }
+.craft-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding-bottom: 10px; border-bottom: 2px solid #9d7244; }
+.craft-kicker { color: #754a2d; font-size: 8px; }
+.craft-heading h2 { margin: 0; color: #38271d; font: 700 clamp(18px, 3vw, 24px) Georgia, serif; }
+.craft-close { width: 31px; height: 31px; border: 2px solid #6e4b31; background: #9b5339; color: #fff0d4; font: 700 22px Georgia, serif; cursor: pointer; }
+.craft-description { color: #5b4630; font: 11px/1.5 "Courier New", monospace; }
+.recipe-row { display: grid; gap: 7px; }
+.recipe-item { display: flex; align-items: center; gap: 9px; padding: 8px; border: 1px solid #8c673f; background: #c69b62; }
+.recipe-item > span { display: grid; width: 28px; height: 28px; place-items: center; border: 1px solid #88633d; background: #ead0a2; color: var(--item-color); font-size: 17px; }
+.recipe-item div { flex: 1; }
+.recipe-item strong,.recipe-item small { display: block; }
+.recipe-item strong { font: 700 10px "Courier New", monospace; }
+.recipe-item small { margin-top: 3px; color: #62482f; font: 9px "Courier New", monospace; }
+.recipe-item > b { color: #6a4932; }
+.recipe-item.is-ready > b { color: #356345; }
+.craft-result { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 9px; border: 1px dashed #815c38; background: #e6c58f; }
+.result-icon { display: grid; width: 34px; height: 34px; place-items: center; border: 1px solid #896340; background: #f2dcab; color: #9f5b8f; font-size: 21px; }
+.craft-result small,.craft-result strong { display: block; }
+.craft-result small { color: #745331; font: 8px "Courier New", monospace; letter-spacing: .1em; }
+.craft-result strong { margin-top: 4px; font: 700 11px "Courier New", monospace; }
+.craft-result strong span { color: #754c34; }
+.craft-message { min-height: 14px; color: #634a31; font: 9px "Courier New", monospace; }
+.craft-button { display: flex; width: 100%; align-items: center; justify-content: space-between; padding: 11px 13px; border: 2px solid #4e3428; background: #8f4938; color: #fff0cd; font: 700 11px "Courier New", monospace; text-transform: uppercase; cursor: pointer; box-shadow: 3px 3px 0 #62422d; }
+.craft-button:disabled { background: #947657; color: #ddd0b8; cursor: default; }
+.craft-button span { font-size: 15px; }
+
+@media (max-width: 980px) {
+  .village-layout { grid-template-columns: minmax(0, 2.7fr) minmax(180px, 1fr); }
+  .village-quests { grid-column: 1 / -1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+  .village-quests .panel-label { width: 100%; }
+  .quest-card { flex: 1; min-width: 170px; border: 0; }
+  .village-tip { max-width: 250px; margin-top: 0; }
+}
+@media (max-width: 640px) {
+  .game-header { min-height: 58px; gap: 8px; padding-inline: 10px; }
+  .game-brand { min-width: 0; gap: 5px; }
+  .game-brand strong { font-size: 12px; }
+  .game-brand small { font-size: 7px; }
+  .brand-lamp { width: 27px; height: 27px; font-size: 16px; }
+  .game-tabs { gap: 4px; }
+  .game-tab { min-height: 29px; padding: 5px 7px; font-size: 8px; }
+  .header-season { gap: 4px; font-size: 7px; letter-spacing: .04em; }
+  .header-season b { padding: 2px 3px; }
+  .village-topline { align-items: flex-start; }
+  .village-intro { max-width: 220px; font-size: 10px; }
+  .player-card { gap: 5px; padding: 6px; }
+  .player-card small { display: none; }
+  .player-avatar { width: 25px; height: 28px; }
+  .health { margin-left: 2px; font-size: 11px; }
+  .village-layout { grid-template-columns: minmax(0,1fr); }
+  .village-quests { grid-column: auto; }
+  .quest-card { min-width: 135px; }
+  .village-tip { max-width: none; flex-basis: 100%; }
+  .village-side { grid-template-columns: 1fr 1fr; }
+  .circuit-link { grid-column: 1 / -1; }
+  .world-footer { font-size: 7px; }
+  .world-night { display: none !important; }
+}
