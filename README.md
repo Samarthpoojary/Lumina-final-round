@@ -1,21 +1,25 @@
-# LUMINA — Round 4
+# LUMINA — Round 4: The Final Boss
 
-This repository is for the **fourth round/game** of the larger four-round LUMINA project. Round 1 is nearly complete; Rounds 2 and 3 are in progress. Keep this repository focused on Round 4, and link to shared work in other rounds rather than copying or changing it without coordination.
+This repository contains the fourth round of the larger four-round LUMINA project. Round 1 is nearly complete; Rounds 2 and 3 are in progress. Keep this repository focused on Round 4 and coordinate shared-context changes with the main LUMINA repository.
 
-## Project status
+## Current playable slice
 
-Planning and repository setup are underway. Round 4 is **The Final Boss**, a free-build virtual breadboard circuit challenge. The current target in the shared project context is a four-LED sequential Diya chaser using an Arduino-style microcontroller module. The existing prototype checks a simplified connection graph and animates a simulated result; it is not an electrical solver or physical-hardware connection. See the canonical [LUMINA project context](https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md).
+The Project Director approved a top-down Diwali village game slice: explore an 84×64-tile world (12× the original map area) with a camera that follows the player, visit four neighborhood/base areas, collect crafting materials, and make one starter Diya Charm at the central stall. The UI uses a warm 16-bit pixel-art direction. The user's Gemini demo is visual guidance, not a full game specification to reproduce.
 
-This repository's relationship to the existing LUMINA prototype is not yet decided. Before implementation is planned here, compare the existing Round 4 prototype and get the intended reuse/extraction approach approved. See [issues #4–#6](https://github.com/Samarthpoojary/Lumina-final-round/issues) for the read-only audit and next planning decisions.
+The village prototype is scoped by [issue #29](https://github.com/Samarthpoojary/Lumina-final-round/issues/29). The first recipe is provisional and stored locally in the browser. This is an early slice, not the complete pasted game specification: multiplayer, combat, backend, accounts, scoring, progression, chat/trading, spectator/admin systems, and persistent inventory remain outside this slice.
+
+## Existing circuit prototype
+
+The four-LED Diya Chaser remains available as a separate circuit activity. It validates a simplified connection graph and simulates the output; it is not an electrical solver or physical-hardware connection. The legacy reference is in the main LUMINA repository, which is not to be modified during this task.
 
 ## Working here
 
-1. Read [AGENTS.md](AGENTS.md) before taking a task.
-2. Use GitHub Issues for scoped tasks and pull requests for proposed changes.
-3. Work in a separate branch or explicitly assigned area. Inspect existing work before editing.
+1. Read [AGENTS.md](AGENTS.md) and [Round 4 scope](docs/round-4-scope.md).
+2. Use GitHub issues for scoped tasks and pull requests for proposed changes.
+3. Work in a separate branch or assigned area. Inspect existing work before editing.
 4. Record decisions, progress, blockers, and handover context in GitHub.
-5. Do not start work outside the approved task scope. Major architecture, security, database, and critical gameplay decisions require Claude's technical authority or explicit user-approved rules.
-6. Do not merge or release without the required review and approval.
+5. Major architecture, security, and database decisions require Claude's technical authority or explicit user approval.
+6. Do not merge or release without required review and approval.
 
 ## Project documents
 
@@ -25,7 +29,3 @@ This repository's relationship to the existing LUMINA prototype is not yet decid
 - [Task template](docs/templates/task.md)
 - [Handover template](docs/templates/handover.md)
 - [Canonical shared LUMINA project context](https://github.com/Samarthpoojary/Lumina/blob/main/docs/PROJECT_CONTEXT.md)
-
-## Scope note
-
-LUMINA is planned as four rounds. This repository represents Round 4 only; it does not establish ownership or status for Rounds 1–3.
