@@ -4,6 +4,7 @@ import {
   type CircuitNetlist,
   type DiyaPathId,
   type DigitalPin,
+  type LedComponent,
   type PinAssignment,
   type ResistorComponent,
   referenceCircuit,
@@ -17,6 +18,11 @@ export interface ValidationResult {
 interface WalkResult {
   components: CircuitComponent[];
   ledOrientationCorrect: boolean;
+}
+
+interface PhysicalPathValidation {
+  errors: string[];
+  pathByPin: Map<DigitalPin, DiyaPathId>;
 }
 
 const PATH_IDS: readonly DiyaPathId[] = ['diya-1', 'diya-2', 'diya-3', 'diya-4'];
@@ -97,8 +103,9 @@ function getResistors(path: WalkResult): ResistorComponent[] {
   return path.components.filter((component): component is ResistorComponent => component.type === 'resistor');
 }
 
-function validatePhysicalPaths(circuit: CircuitNetlist): string[] {
+function validatePhysicalPaths(circuit: CircuitNetlist): PhysicalPathValidation {
   const errors: string[] = [];
+  const pathByPin = new Map<DigitalPin, DiyaPathId>();
   const pinNets = new Map<string, DigitalPin[]>();
 
   for (const pin of DIGITAL_PINS) {
@@ -149,6 +156,8 @@ function validatePhysicalPaths(circuit: CircuitNetlist): string[] {
     }
 
     const [path] = directedPaths;
+    const led = path.components.find((component): component is LedComponent => component.type === 'led');
+    if (led) pathByPin.set(pin, led.pathId);
     for (const component of path.components) {
       if (usedComponentIds.has(component.id)) {
         errors.push(`${pin} shares component ${component.id} with another pin path.`);
@@ -157,7 +166,7 @@ function validatePhysicalPaths(circuit: CircuitNetlist): string[] {
     }
   }
 
-  return errors;
+  return { errors, pathByPin };
 }
 
 function isDigitalPin(value: string | null): value is DigitalPin {
@@ -174,7 +183,8 @@ export function validatePinConfiguration(
   assignments: readonly PinAssignment[],
   circuit: CircuitNetlist = referenceCircuit,
 ): ValidationResult {
-  const errors = validatePhysicalPaths(circuit);
+  const physicalPaths = validatePhysicalPaths(circuit);
+  const errors = [...physicalPaths.errors];
   const assignmentsByPath = new Map<string, PinAssignment>();
   const pathsByPin = new Map<DigitalPin, string[]>();
 
@@ -207,6 +217,17 @@ export function validatePinConfiguration(
   for (const [pin, pathIds] of pathsByPin) {
     if (pathIds.length > 1) {
       errors.push(`${pin} is assigned to more than one LED path.`);
+    }
+  }
+
+  const pinByPhysicalPath = new Map(
+    [...physicalPaths.pathByPin].map(([pin, pathId]) => [pathId, pin] as const),
+  );
+  for (const [pathId, assignment] of assignmentsByPath) {
+    if (!isDigitalPin(assignment.pin)) continue;
+    const physicalPin = pinByPhysicalPath.get(pathId as DiyaPathId);
+    if (physicalPin && assignment.pin !== physicalPin) {
+      errors.push(`${getPathLabel(pathId)} is physically wired to ${physicalPin}, not ${assignment.pin}.`);
     }
   }
 
