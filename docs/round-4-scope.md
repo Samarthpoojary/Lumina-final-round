@@ -6,9 +6,9 @@ This summary follows the shared LUMINA project context in [`Samarthpoojary/Lumin
 
 ## Approved Round 4 direction
 
-Round 4 is **The Final Boss** within LUMINA. The Project Director has approved building a first playable top-down Diwali village slice in this repository. It uses a warm, 16-bit pixel-art visual language, with a small walkable map, a controllable character, material pickups, a HUD/inventory, and one starter crafting interaction. The user's Gemini demo is visual guidance only; do not copy it as a complete specification or reuse its exact art, names, UI, or recipes.
+Round 4 is **The Final Boss** within LUMINA. The Project Director has approved building a first playable top-down Diwali village slice in this repository. It uses a warm 16-bit pixel-art visual language and an 84×64-tile world (12× the original map area) with a player-following camera, four visually distinct neighborhood/base areas, connecting paths, distributed materials and festival landmarks, a HUD/inventory, and one starter crafting interaction. The user's Gemini demo is visual guidance only; do not copy it as a complete specification or reuse its exact art, names, UI, or recipes.
 
-The starter slice is scoped by [GitHub issue #29](https://github.com/Samarthpoojary/Lumina-final-round/issues/29). Its initial recipe is provisional and local to the demo. Multiplayer, combat, accounts, backend, scoring, progression systems, and persistent inventory are not approved by this task.
+The starter slice is scoped by [GitHub issue #29](https://github.com/Samarthpoojary/Lumina-final-round/issues/29). Its initial recipe is provisional and local to the demo. This is not the complete game specification: multiplayer/team competition, combat, accounts, backend, scoring, progression systems, chat/trading, spectator/admin tools, and persistent inventory are not implemented or approved by this task.
 
 The four-LED Diya Chaser remains the existing circuit prototype/feature in this repository. Its current target path is four outputs:
 - Arduino digital pin D2, D3, D4, or D5

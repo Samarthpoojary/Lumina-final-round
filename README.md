@@ -4,9 +4,9 @@ This repository contains the fourth round of the larger four-round LUMINA projec
 
 ## Current playable slice
 
-The Project Director approved a compact top-down Diwali village game slice: move around a small festival map, collect crafting materials, and make one starter Diya Charm at a nearby stall. The UI uses a warm 16-bit pixel-art direction. The user's Gemini demo is a visual reference, not a full game specification to reproduce.
+The Project Director approved a top-down Diwali village game slice: explore an 84×64-tile world (12× the original map area) with a camera that follows the player, visit four neighborhood/base areas, collect crafting materials, and make one starter Diya Charm at the central stall. The UI uses a warm 16-bit pixel-art direction. The user's Gemini demo is visual guidance, not a full game specification to reproduce.
 
-The village prototype is scoped by [issue #29](https://github.com/Samarthpoojary/Lumina-final-round/issues/29). The first recipe is provisional and stored locally in the browser. Multiplayer, combat, backend, accounts, scoring, progression, and persistent inventory are outside this slice.
+The village prototype is scoped by [issue #29](https://github.com/Samarthpoojary/Lumina-final-round/issues/29). The first recipe is provisional and stored locally in the browser. This is an early slice, not the complete pasted game specification: multiplayer, combat, backend, accounts, scoring, progression, chat/trading, spectator/admin systems, and persistent inventory remain outside this slice.
 
 ## Existing circuit prototype
 
