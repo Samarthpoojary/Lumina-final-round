@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="160" viewBox="0 0 64 160" shape-rendering="crispEdges" aria-hidden="true" focusable="false">
+  <defs>
+    <g id="hero-down-a">
+      <rect x="8" y="35" width="16" height="2" fill="#322f2b" fill-opacity=".45" />
+      <path d="M11 28h4v7h-4zM17 28h4v7h-4z" fill="#665147" />
+      <path d="M10 33h6v3h-6zM17 33h6v3h-6z" fill="#403934" />
+      <path d="M8 18h4v10H8zM20 18h4v10h-4z" fill="#3f8c7b" />
+      <path d="M10 16h12v14H10z" fill="#4b9b86" />
+      <path d="M10 26h12v3H10z" fill="#34796c" />
+      <path d="M14 17h4v8h-4z" fill="#e6a94c" />
+      <path d="M6 19h3v6H6zM23 19h3v6h-3z" fill="#d89848" />
+      <path d="M10 7h12v11H10z" fill="#d89a68" />
+      <path d="M8 5h16v7H8zM10 4h12v3H10z" fill="#302b2a" />
+      <path d="M8 9h3v8H8zM21 9h3v8h-3z" fill="#3b302d" />
+      <path d="M11 13h2v2h-2zM19 13h2v2h-2z" fill="#302b2a" />
+      <path d="M12 17h8v2h-8z" fill="#f0bd79" />
+      <path d="M7 22h2v3H7zM23 22h2v3h-2z" fill="#eab375" />
+    </g>
+    <g id="hero-down-b">
+      <rect x="8" y="35" width="16" height="2" fill="#322f2b" fill-opacity=".45" />
+      <path d="M9 28h4v7H9zM19 28h4v7h-4z" fill="#665147" />
+      <path d="M8 33h6v3H8zM18 33h6v3h-6z" fill="#403934" />
+      <path d="M8 18h4v10H8zM20 18h4v10h-4z" fill="#3f8c7b" />
+      <path d="M10 16h12v14H10z" fill="#4b9b86" />
+      <path d="M10 26h12v3H10z" fill="#34796c" />
+      <path d="M14 17h4v8h-4z" fill="#e6a94c" />
+      <path d="M6 19h3v6H6zM23 19h3v6h-3z" fill="#d89848" />
+      <path d="M10 7h12v11H10z" fill="#d89a68" />
+      <path d="M8 5h16v7H8zM10 4h12v3H10z" fill="#302b2a" />
+      <path d="M8 9h3v8H8zM21 9h3v8h-3z" fill="#3b302d" />
+      <path d="M11 13h2v2h-2zM19 13h2v2h-2z" fill="#302b2a" />
+      <path d="M12 17h8v2h-8z" fill="#f0bd79" />
+      <path d="M7 22h2v3H7zM23 22h2v3h-2z" fill="#eab375" />
+    </g>
+    <g id="hero-side-a">
+      <rect x="8" y="35" width="16" height="2" fill="#322f2b" fill-opacity=".45" />
+      <path d="M10 28h4v7h-4zM17 28h4v7h-4z" fill="#665147" />
+      <path d="M9 33h6v3H9zM17 33h6v3h-6z" fill="#403934" />
+      <path d="M8 18h5v10H8zM20 18h4v10h-4z" fill="#3f8c7b" />
+      <path d="M11 16h11v14H11z" fill="#4b9b86" />
+      <path d="M11 26h11v3H11z" fill="#34796c" />
+      <path d="M14 17h4v8h-4z" fill="#e6a94c" />
+      <path d="M7 19h3v6H7z" fill="#d89848" />
+      <path d="M12 7h11v11H12z" fill="#d89a68" />
+      <path d="M10 5h14v7H10zM13 4h10v3H13z" fill="#302b2a" />
+      <path d="M21 10h4v7h-4z" fill="#3b302d" />
+      <path d="M20 13h2v2h-2z" fill="#302b2a" />
+      <path d="M12 17h8v2h-8z" fill="#f0bd79" />
+      <path d="M7 22h2v3H7z" fill="#eab375" />
+    </g>
+    <g id="hero-side-b">
+      <rect x="8" y="35" width="16" height="2" fill="#322f2b" fill-opacity=".45" />
+      <path d="M8 28h4v7H8zM19 28h4v7h-4z" fill="#665147" />
+      <path d="M7 33h6v3H7zM18 33h6v3h-6z" fill="#403934" />
+      <path d="M8 18h5v10H8zM20 18h4v10h-4z" fill="#3f8c7b" />
+      <path d="M11 16h11v14H11z" fill="#4b9b86" />
+      <path d="M11 26h11v3H11z" fill="#34796c" />
+      <path d="M14 17h4v8h-4z" fill="#e6a94c" />
+      <path d="M7 19h3v6H7z" fill="#d89848" />
+      <path d="M12 7h11v11H12z" fill="#d89a68" />
+      <path d="M10 5h14v7H10zM13 4h10v3H13z" fill="#302b2a" />
+      <path d="M21 10h4v7h-4z" fill="#3b302d" />
+      <path d="M20 13h2v2h-2z" fill="#302b2a" />
+      <path d="M12 17h8v2h-8z" fill="#f0bd79" />
+      <path d="M7 22h2v3H7z" fill="#eab375" />
+    </g>
+    <g id="hero-up-a">
+      <rect x="8" y="35" width="16" height="2" fill="#322f2b" fill-opacity=".45" />
+      <path d="M11 28h4v7h-4zM17 28h4v7h-4z" fill="#665147" />
+      <path d="M10 33h6v3h-6zM17 33h6v3h-6z" fill="#403934" />
+      <path d="M8 18h4v10H8zM20 18h4v10h-4z" fill="#3f8c7b" />
+      <path d="M10 15h12v15H10z" fill="#4b9b86" />
+      <path d="M10 26h12v3H10z" fill="#34796c" />
+      <path d="M12 15h8v4h-8z" fill="#e6a94c" />
+      <path d="M8 6h16v12H8z" fill="#302b2a" />
+      <path d="M10 9h12v8H10z" fill="#3b302d" />
+      <path d="M8 5h16v5H8z" fill="#282625" />
+      <path d="M7 20h2v5H7zM23 20h2v5h-2z" fill="#d89848" />
+      <path d="M13 20h6v3h-6z" fill="#d69a57" />
+    </g>
+    <g id="hero-up-b">
+      <rect x="8" y="35" width="16" height="2" fill="#322f2b" fill-opacity=".45" />
+      <path d="M9 28h4v7H9zM19 28h4v7h-4z" fill="#665147" />
+      <path d="M8 33h6v3H8zM18 33h6v3h-6z" fill="#403934" />
+      <path d="M8 18h4v10H8zM20 18h4v10h-4z" fill="#3f8c7b" />
+      <path d="M10 15h12v15H10z" fill="#4b9b86" />
+      <path d="M10 26h12v3H10z" fill="#34796c" />
+      <path d="M12 15h8v4h-8z" fill="#e6a94c" />
+      <path d="M8 6h16v12H8z" fill="#302b2a" />
+      <path d="M10 9h12v8H10z" fill="#3b302d" />
+      <path d="M8 5h16v5H8z" fill="#282625" />
+      <path d="M7 20h2v5H7zM23 20h2v5h-2z" fill="#d89848" />
+      <path d="M13 20h6v3h-6z" fill="#d69a57" />
+    </g>
+  </defs>
+
+  <!-- Frame size: 32×40. Columns are idle/step; rows face down, left, right, up. -->
+  <use href="#hero-down-a" x="0" y="0" />
+  <use href="#hero-down-b" x="32" y="0" />
+  <use href="#hero-side-a" x="0" y="40" />
+  <use href="#hero-side-b" x="32" y="40" />
+  <use href="#hero-side-a" transform="translate(64 80) scale(-1 1)" />
+  <use href="#hero-side-b" transform="translate(32 80) scale(-1 1)" />
+  <use href="#hero-up-a" x="0" y="120" />
+  <use href="#hero-up-b" x="32" y="120" />
+</svg>
+
