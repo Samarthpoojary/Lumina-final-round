@@ -20,9 +20,11 @@ All four paths are required. The current prototype needs no code entry; its virt
 
 The current prototype lives in `lumina-final-boss.html` in the main LUMINA repository. It is an HTML/CSS/JavaScript browser page with inline styling and simulation logic. The circuit checker validates simplified graph connectivity; it is not an electrical solver or physical hardware connection. On success, the main prototype records a demo score and result in browser `localStorage`. The current product context describes the app as a one-browser prototype without a shared backend or authoritative cross-device scoring.
 
-## Unresolved repository decision
+## Approved repository relationship
 
-The relationship between the existing prototype and this repository is not yet approved. Decide whether to reuse or extract the existing prototype, or build separately, before implementation is assigned. Preserve the existing LUMINA context and keep Rounds 1–3 out of scope. Do not invent scoring, electrical behavior, security rules, or architecture decisions where the canonical context is silent.
+The user approved this repository as the standalone home for Round 4. The main LUMINA repository remains the canonical source for shared project context, and its Final Boss prototype is reference-only. Do not edit the earlier-round repository as part of Round 4 work. Any selected prototype parts may be ported selectively into this repository later through reviewed pull requests.
+
+The implementation strategy remains a technical decision. Claude must review whether and how any prototype parts should be reused, the Round 4 architecture, graph validation, simulation boundaries, and persistence. Do not invent scoring, electrical behavior, security rules, or architecture decisions where the canonical context is silent.
 
 ## Authority
 
