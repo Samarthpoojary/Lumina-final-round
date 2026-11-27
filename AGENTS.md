@@ -34,7 +34,7 @@ No agent may make major architecture, security, database, or critical gameplay d
 
 If an agent reaches a usage limit, goes offline, encounters a service outage, repeatedly errors, or otherwise cannot continue:
 
-1. Mark the task **Blocked** in GitHub and record the cause.
+1. Mark the task **Blocked** in GitHub and record the cause. Apply the `blocked`, `queued`, `agent-unavailable`, or `failover` issue label as applicable so the Discord workflow routes it to `#bugs-and-blockers`.
 2. Preserve committed work, branch/PR links, progress, open questions, risks, and a concise handover in GitHub. Save unfinished changes to the assigned branch when possible.
 3. The coordinator finds an available backup whose capability and authority fit the task.
 4. For an eligible task, automatically reassign it without asking the user for a second approval. Notify the dedicated LUMINA Discord channel and record the reassignment in GitHub.
