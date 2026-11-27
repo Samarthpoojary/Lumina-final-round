@@ -1,18 +1,14 @@
-export type DigitalPin = 'D2' | 'D3' | 'D4' | 'D5';
-
-export type DiyaPathId = 'diya-1' | 'diya-2' | 'diya-3' | 'diya-4';
-
-export interface PinAssignment {
-  pathId: DiyaPathId;
-  pin: DigitalPin | null;
-}
+import { DIGITAL_PINS, type DigitalPin, type DiyaPathId, type PinAssignment } from './circuit-model';
 
 export interface PinConfigurationView {
   element: HTMLElement;
   getAssignments: () => PinAssignment[];
+  setStatus: (message: string) => void;
+  setCurrentStep: (message: string) => void;
+  onChange: (listener: () => void) => void;
 }
 
-const pinOptions: DigitalPin[] = ['D2', 'D3', 'D4', 'D5'];
+const pinOptions: readonly DigitalPin[] = DIGITAL_PINS;
 const paths: Array<{ id: DiyaPathId; label: string }> = [
   { id: 'diya-1', label: 'LED 1 path' },
   { id: 'diya-2', label: 'LED 2 path' },
@@ -44,11 +40,15 @@ export function createPinConfiguration(): PinConfigurationView {
         </div>
       `).join('')}
     </div>
+    <button class="sequence-button" id="diya-sequence-toggle" type="button">Validate &amp; start sequence</button>
     <p class="pin-status" id="pin-config-status" role="status" aria-live="polite">Choose a pin for each of the four LED paths.</p>
+    <p class="sequence-current" id="sequence-current" aria-live="off"></p>
   `;
 
   const selectors = Array.from(element.querySelectorAll<HTMLSelectElement>('select[data-path-id]'));
   const status = element.querySelector<HTMLElement>('#pin-config-status');
+  const currentStep = element.querySelector<HTMLElement>('#sequence-current');
+  const changeListeners: Array<() => void> = [];
 
   const readAssignments = (): PinAssignment[] => selectors.map((selector) => ({
     pathId: selector.dataset.pathId as DiyaPathId,
@@ -80,7 +80,20 @@ export function createPinConfiguration(): PinConfigurationView {
     }
   };
 
-  selectors.forEach((selector) => selector.addEventListener('change', update));
+  selectors.forEach((selector) => selector.addEventListener('change', () => {
+    update();
+    changeListeners.forEach((listener) => listener());
+  }));
 
-  return { element, getAssignments: readAssignments };
+  return {
+    element,
+    getAssignments: readAssignments,
+    setStatus: (message) => {
+      if (status) status.textContent = message;
+    },
+    setCurrentStep: (message) => {
+      if (currentStep) currentStep.textContent = message;
+    },
+    onChange: (listener) => changeListeners.push(listener),
+  };
 }
